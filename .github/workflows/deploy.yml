@@ -1,4 +1,4 @@
-name: Deploy Docusaurus
+name: Deploy Docusaurus to GitHub Pages
 
 on:
   push:
@@ -17,29 +17,36 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Build website
         run: |
-          yarn build
-          ls -la
+          npm run build
+          # Kiểm tra xem thư mục build có được tạo không
           if [ -d "build" ]; then
+            echo "✅ build/ folder created!"
             ls -la build
           else
-            echo "❌ Build failed: no build folder"
+            echo "❌ FAILED: build folder not created!"
+            ls -la  # Xem thử có gì
             exit 1
           fi
 
       - name: Prepare deploy folder
         run: |
+          # Xóa tất cả file/folder ở gốc, trừ .github và README.md
           find . -maxdepth 1 ! -name ".github" ! -name "README.md" ! -name "." ! -name ".." -exec rm -rf {} +
+          # Copy file đã build vào gốc
           cp -r build/* ./
-          touch .nojekyll  # Tắt Jekyll nếu cần
+          # Tạo file .nojekyll để tránh lỗi với tên file
+          touch .nojekyll
+          echo "✅ Copied build files and created .nojekyll"
 
-      - name: Deploy to main
+      - name: Deploy to GitHub Pages
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "Deploy Docusaurus site" || echo "No changes"
+          git status  # Xem file thay đổi
+          git commit -m "Deploy Docusaurus site" || echo "No changes to commit"
           git push origin main
