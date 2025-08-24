@@ -1,4 +1,4 @@
-name: Deploy Docusaurus to GitHub Pages
+name: Deploy Docusaurus
 
 on:
   push:
@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -17,37 +17,29 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
       - name: Build website
         run: |
-          npm run build
+          yarn build
           ls -la
           if [ -d "build" ]; then
-            echo "✅ Build folder exists"
             ls -la build
           else
-            echo "❌ ERROR: build folder not found!"
+            echo "❌ Build failed: no build folder"
             exit 1
           fi
 
-      - name: Prepare deploy (clean old files)
+      - name: Prepare deploy folder
         run: |
-          # Giữ lại .github và README.md
           find . -maxdepth 1 ! -name ".github" ! -name "README.md" ! -name "." ! -name ".." -exec rm -rf {} +
-          echo "✅ Old files removed"
-
-      - name: Copy build files to root
-        run: |
           cp -r build/* ./
-          echo "✅ Copied build files"
-          ls -la  # Xem kết quả
+          touch .nojekyll  # Tắt Jekyll nếu cần
 
-      - name: Commit and push
+      - name: Deploy to main
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
-          git status
-          git commit -m "Deploy Docusaurus site" || echo "No changes to commit"
+          git commit -m "Deploy Docusaurus site" || echo "No changes"
           git push origin main
