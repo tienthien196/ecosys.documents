@@ -1,0 +1,593 @@
+/* === 1. FONT KIỂU HACKER / TERMINAL === */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --ifm-color-primary: #00ff88; /* Neon green */
+  --ifm-color-primary-dark: #00cc6a;
+  --ifm-navbar-background-color: #0a0f1d;
+  --ifm-footer-background-color: #0a0f1d;
+  --ifm-card-background-color: #121a2e;
+  --ifm-font-family-base: 'Share Tech Mono', monospace;
+}
+
+/* === 2. FONT CHUNG CHO TOÀN BỘ SITE === */
+html, body, h1, h2, h3, h4, h5, h6, .hero__title, .navbar__brand, .menu__link {
+  font-family: 'Orbitron', 'Press Start 2P', 'Share Tech Mono', monospace !important;
+  letter-spacing: 0.5px;
+}
+
+/* === 3. NAVBAR: NỀN CYBERPUNK === */
+.navbar {
+  background: #191b1af8 !important;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+  height: 70px;
+  padding: 0 1rem;
+}
+
+/* === 4. LOGO === */
+.navbar__logo img {
+  filter: drop-shadow(0 0 8px rgb(45, 201, 229));
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.navbar__logo img:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.8));
+}
+
+/* === 5. CÁC NÚT NAVBAR (BUTTON VỚI ANIMATION) === */
+.nav-button .menu__link {
+  background: linear-gradient(90deg, rgba(46, 125, 165, 0.6), rgba(0, 40, 60, 0.5));
+  color: #00ff88 !important;
+  border: 1px solid rgba(0, 255, 136, 0.4);
+  padding: 0.5rem 1.2rem;
+  margin: 0 4px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Hiệu ứng hover: nổ sáng, scale, glow */
+.nav-button .menu__link:hover {
+  background: linear-gradient(90deg, rgba(0, 30, 50, 0.8), rgba(0, 60, 100, 0.7));
+  color: #a0ffcc !important;
+  border-color: #00ff88;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 255, 136, 0.4),
+              0 0 20px rgba(0, 255, 136, 0.3);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+/* === 6. THANH TÌM KIẾM (nút neon) === */
+.search-btn .menu__link {
+  background: rgba(0, 30, 50, 0.7) !important;
+  border: 1px solid rgba(100, 255, 200, 0.5) !important;
+  color: #a0ffcc !important;
+  font-size: 0.8rem;
+}
+
+.search-btn .menu__link:hover {
+  background: rgba(0, 50, 80, 0.8) !important;
+  border-color: #00ff88 !important;
+  color: #00ff88 !important;
+}
+
+.search-button__icon path {
+  fill: #00ff88;
+  transition: fill 0.3s ease;
+}
+
+.search-button__icon path:hover {
+  fill: #a0ffcc;
+}
+
+/* === 7. GITHUB BUTTON (riêng biệt) === */
+.github-btn .menu__link {
+  background: #161b22 !important;
+  border: 1px solid #30363d !important;
+  color: #c9d1d9 !important;
+}
+
+.github-btn .menu__link:hover {
+  background: #21262d !important;
+  border-color: #00ff88 !important;
+  color: #00ff88 !important;
+}
+
+/* === 8. FOOTER: GAME ENGINE STYLE === */
+.footer {
+  background: linear-gradient(135deg, #060606 0%, #ffffff76 100%) !important;
+  border-top: 1px solid rgba(0, 255, 136, 0.2);
+  padding: 3rem 0 2rem;
+}
+
+.footer__title {
+  color: #00ff88;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.4);
+}
+
+.footer__link-item a {
+  color: #8abfb0 !important;
+  transition: color 0.3s ease;
+}
+
+.footer__link-item a:hover {
+  color: #00ff88 !important;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+}
+
+.footer__copyright {
+  color: #4b6a5e;
+  border-top: 1px solid rgba(0, 255, 136, 0.2);
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+/* === 9. HERO SECTION (nếu có) === */
+.hero {
+  background: linear-gradient(135deg, #204abe 0%, #204bb8 100%);
+  text-align: center;
+  padding: 5rem 1rem;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.hero__title {
+  color: #00ff88;
+  font-size: 3rem;
+  text-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+  letter-spacing: 2px;
+}
+
+.hero__subtitle {
+  color: #a0ffcc;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* === CSS CHO TOÀN BỘ KHU VỰC DOCS === */
+
+
+
+.docs-doc-page {
+  /* Nền gradient cyberpunk */
+  background: linear-gradient(135deg, #0a0f1d 0%, #0d152a 100%) !important;
+  color: #c9d1d9;
+}
+
+/* === FONT CHUNG CHO TOÀN BỘ DOCS (KIỂU HACKER) === */
+.docs-doc-page,
+.docs-doc-page h1,
+.docs-doc-page h2,
+.docs-doc-page h3,
+.docs-doc-page p,
+.docs-doc-page li {
+  font-family: 'Orbitron', 'Share Tech Mono', monospace !important;
+  letter-spacing: 0.5px;
+}
+
+/* Tiêu đề chính của trang docs */
+.docs-doc-page .theme-doc-title {
+  color: #00ff88 !important;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+  font-weight: bold;
+  border-left: 3px solid #00ff88;
+  padding-left: 12px;
+}
+
+/* Các tiêu đề trong nội dung (h1, h2, h3...) */
+.docs-doc-page h1 {
+  color: #00ff88;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+.docs-doc-page h2 {
+  color: #a0ffcc;
+  border-bottom: 1px solid #00ff8844;
+}
+
+.docs-doc-page h3 {
+  color: #8abfb0;
+}
+
+/* Nội dung văn bản */
+.docs-doc-page p,
+.docs-doc-page li {
+  color: #bfc7d9;
+  line-height: 1.8;
+}
+
+/* Code block */
+.docs-doc-page .codeBlockContainer,
+.docs-doc-page .code-block {
+  background: #121a2e !important;
+  border-left: 3px solid #00ff88 !important;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.15) !important;
+  font-family: 'Share Tech Mono', monospace !important;
+}
+
+/* Inline code */
+.docs-doc-page code {
+  background: rgba(0, 255, 136, 0.1) !important;
+  color: #00ff88 !important;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* Cảnh báo, ghi chú */
+.docs-doc-page .admonition {
+  border-left-color: #00ff88 !important;
+  background: rgba(0, 255, 136, 0.05) !important;
+}
+
+.docs-doc-page .admonition-title {
+  color: #00ff88 !important;
+}
+
+/* Table */
+.docs-doc-page table {
+  border: 1px solid #00ff8844;
+}
+
+.docs-doc-page th {
+  background: rgba(0, 255, 136, 0.1) !important;
+  color: #00ff88 !important;
+}
+
+/* Internal link trong docs */
+.docs-doc-page a {
+  color: #00ff88 !important;
+}
+
+.docs-doc-page a:hover {
+  color: #a0ffcc !important;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+}
+
+/* Sidebar (menu docs) */
+.docs-doc-page .menu__link {
+  transition: all 0.3s ease;
+}
+
+.docs-doc-page .menu__link:hover,
+.docs-doc-page .menu__link--active {
+  color: #00ff88 !important;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.4);
+}
+
+/* === Hiệu ứng nền caro (circuit board) === */
+.docs-doc-page .container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.4;
+  animation: scanline 40s linear infinite;
+}
+
+
+/* === 1. ÁP DỤNG CHO TOÀN BỘ KHU VỰC DOCS === */
+.docs-doc-page {
+  /* Font chữ mới cho toàn bộ docs */
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  background: #0f1727 !important; /* Nền tối hiện đại */
+  color: #e2e8f0; /* Màu chữ chính */
+}
+
+/* === 2. THAY ĐỔI FONT CHỮ (Bạn có thể chọn 1 trong các kiểu dưới) === */
+
+/* 🔹 Kiểu 1: Hiện đại, sạch sẽ (phù hợp docs kỹ thuật) */
+/* .docs-doc-page,
+.docs-doc-page p,
+.docs-doc-page li,
+.docs-doc-page td {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.8;
+  font-size: 16px;
+} */
+
+/* 🔹 Kiểu 2: Lập trình / terminal (nếu bạn thích phong cách code) */
+
+/* .docs-doc-page,
+.docs-doc-page p,
+.docs-doc-page li,
+.docs-doc-page td {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+} */
+
+
+/* 🔹 Kiểu 3: Nghệ thuật, futuristic (như game engine) */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Share+Tech+Mono&display=swap');
+
+.docs-doc-page,
+.docs-doc-page p,
+.docs-doc-page li,
+.docs-doc-page td {
+  font-family: 'Orbitron', 'Share Tech Mono', monospace;
+  letter-spacing: 0.5px;
+} */
+
+
+
+@keyframes scanline {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100vh; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .docs-doc-page .container::before {
+    opacity: 0.15;
+  }
+}
+
+/* === 1. FONT CHỮ CHUYÊN NGHIỆP CHO TOÀN BỘ DOCS === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500&display=swap');
+
+.docs-doc-page,
+.docs-doc-page p,
+.docs-doc-page li,
+.docs-doc-page td,
+.docs-doc-page blockquote {
+  font-family: 'Inter', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif !important;
+  line-height: 1.8;
+  color: #24292f; /* Màu chữ tối tự nhiên */
+}
+
+/* === 2. MÀU NỀN VÀ GIAO DIỆN SẠCH SẼ === */
+.docs-doc-page {
+  background: #ffffff !important; /* Nền trắng tinh */
+  /* Hoặc dùng nền xám nhẹ: background: #fafbfc !important; */
+}
+
+/* Nếu dùng dark mode, bạn có thể đổi màu cho dark */
+[data-theme='dark'] .docs-doc-page {
+  background: #161b22 !important;
+  color: #e6edf3;
+}
+
+/* === 3. TIÊU ĐỀ RÕ RÀNG, CÓ HIERARCHY === */
+.docs-doc-page .theme-doc-title,
+.docs-doc-page h1 {
+  color: #1f6feb !important; /* Xanh Docusaurus */
+  font-weight: 700;
+  border-bottom: none;
+  margin-bottom: 1rem;
+}
+
+.docs-doc-page h2 {
+  color: #24292f;
+  border-bottom: 1px solid #d0d7de;
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+.docs-doc-page h3 {
+  color: #1f6feb;
+  margin-top: 1.5rem;
+}
+
+.docs-doc-page h4,
+.docs-doc-page h5,
+.docs-doc-page h6 {
+  color: #57606a;
+}
+
+/* === 4. VĂN BẢN VÀ LIÊN KẾT === */
+.docs-doc-page p,
+.docs-doc-page li {
+  color: #24292f;
+  font-size: 16px;
+}
+
+.docs-doc-page a {
+  color: #1f6feb !important;
+}
+
+.docs-doc-page a:hover {
+  color: #114aac !important;
+  text-decoration: underline;
+}
+
+/* === 5. CODE BLOCK (giữ sạch sẽ, không neon) === */
+.docs-doc-page .codeBlockContainer,
+.docs-doc-page .code-block {
+  background: #f6f8fa !important; /* Xám rất nhạt */
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace !important;
+  font-size: 14px;
+}
+
+/* Dark mode code block */
+[data-theme='dark'] .docs-doc-page .codeBlockContainer,
+[data-theme='dark'] .docs-doc-page .code-block {
+  background: #0d1117 !important;
+  border-color: #30363d;
+}
+
+/* Inline code */
+.docs-doc-page code {
+  background: #f6f8fa !important;
+  color: #e96900 !important;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'SFMono-Regular', monospace !important;
+}
+
+/* Dark mode inline code */
+[data-theme='dark'] .docs-doc-page code {
+  background: #21262d !important;
+  color: #ffa7c4 !important;
+}
+
+/* === 6. ADMONITION (CẢNH BÁO, GHI CHÚ) === */
+.docs-doc-page .admonition {
+  border-left-color: #1f6feb !important;
+  background: #f1f8ff !important;
+}
+
+.docs-doc-page .admonition-title {
+  color: #1f6feb !important;
+}
+
+/* Dark mode */
+[data-theme='dark'] .docs-doc-page .admonition {
+  background: #0d2d66 !important;
+}
+
+/* === 7. SIDEBAR (Menu docs) - Sạch sẽ, rõ ràng === */
+.docs-doc-page .menu__link {
+  transition: background 0.2s ease;
+}
+
+.docs-doc-page .menu__link:hover,
+.docs-doc-page .menu__link--active {
+  background: #eaf3ff !important;
+  color: #1f6feb !important;
+  font-weight: 500;
+}
+
+/* Dark mode sidebar */
+[data-theme='dark'] .docs-doc-page .menu__link:hover,
+[data-theme='dark'] .docs-doc-page .menu__link--active {
+  background: #214b8c !important;
+  color: #89d2ff !important;
+}
+
+/* === 8. TABLE === */
+.docs-doc-page table {
+  border: 1px solid #d0d7de;
+}
+
+.docs-doc-page th {
+  background: #f6f8fa !important;
+  font-weight: 600;
+}
+
+/* Dark mode table */
+[data-theme='dark'] .docs-doc-page th {
+  background: #21262d !important;
+  border-color: #30363d;
+}
+
+/* === 9. BLOCKQUOTE === */
+.docs-doc-page blockquote {
+  border-left: 4px solid #1f6feb;
+  background: #f1f8ff;
+  color: #24292f;
+}
+
+[data-theme='dark'] .docs-doc-page blockquote {
+  background: #0d2d66;
+  color: #e6edf3;
+}
+
+/* === TÙY CHỈNH CARD TRONG DOCS (Danh sách bài viết) === */
+
+/* 1. Card chung (.card là class ổn định) */
+.card {
+  background: #ffffff; /* Nền trắng sáng, dễ chịu */
+  border: 1px solid #e2e8f0; /* Viền xám nhạt */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Bóng nhẹ */
+  transition: all 0.3s ease;
+  padding: 1.5rem !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* Hover: nâng card lên, viền xanh Docusaurus */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  border-color: #1f6feb;
+  text-decoration: none;
+}
+
+/* 2. Tiêu đề card */
+.card h2 {
+  color: #1f6feb !important; /* Xanh Docusaurus */
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 3. Mô tả (description) */
+.card p {
+  color: #475569;
+  font-size: 0.95rem;
+  margin: 0;
+  font-style: italic;
+}
+
+/* 4. Truncate text (giữ nguyên) */
+.text--truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* === DARK MODE: Tùy chỉnh khi bật dark theme === */
+[data-theme='dark'] .card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .card:hover {
+  background: #26344a;
+  border-color: #60a5fa;
+}
+
+[data-theme='dark'] .card h2 {
+  color: #818cf8 !important;
+}
+
+[data-theme='dark'] .card p {
+  color: #cbd5e1;
+}
+
+/* === 5. Responsive: Căn giữa nội dung trên mobile === */
+@media (max-width: 768px) {
+  .card {
+    padding: 1.25rem !important;
+    text-align: center;
+  }
+  .card h2 {
+    font-size: 1rem;
+  }
+  .card p {
+    font-size: 0.85rem;
+  }
+}
+
+/* === 10. RESPONSIVE === */
+@media (max-width: 768px) {
+  .docs-doc-page p,
+  .docs-doc-page li {
+    font-size: 15px;
+  }
+}
