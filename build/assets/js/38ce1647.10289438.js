@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[2368],{6146:e=>{e.exports=JSON.parse('{"categoryGeneratedIndex":{"title":"Arch Network","slug":"/category/arch-network","permalink":"/docs/category/arch-network","sidebar":"tutorialSidebar","navigation":{"next":{"title":"Computer Network","permalink":"/docs/ArchNetwork/ComputerNetwork"}}}}')}}]);
