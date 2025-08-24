@@ -20,35 +20,34 @@ jobs:
         run: npm ci
 
       - name: Build website
-        run: npm run build
-        # Kết quả sẽ nằm ở thư mục ./build
-
-      # ----------------------------------------
-      # Checkout lại nhánh main để cập nhật file
-      # ----------------------------------------
-      - name: Fetch main branch
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git fetch origin main
-          git checkout main
+          npm run build
+          ls -la
+          if [ -d "build" ]; then
+            echo "✅ Build folder exists"
+            ls -la build
+          else
+            echo "❌ ERROR: build folder not found!"
+            exit 1
+          fi
 
-      - name: Remove old site files (giữ lại .github và README.md)
+      - name: Prepare deploy (clean old files)
         run: |
-          # Xóa tất cả file ngoại trừ .github và README.md
-          find . -maxdepth 1 -name ".github" -o -name "README.md" -o -name "." -o -name ".." | grep -v "^\.$" | grep -v "\.\.$" | xargs -I {} echo "Keeping {}"
+          # Giữ lại .github và README.md
           find . -maxdepth 1 ! -name ".github" ! -name "README.md" ! -name "." ! -name ".." -exec rm -rf {} +
+          echo "✅ Old files removed"
 
-      - name: Copy built files to root
+      - name: Copy build files to root
         run: |
           cp -r build/* ./
-          git add .
-          git status  # Xem các file được thêm
+          echo "✅ Copied build files"
+          ls -la  # Xem kết quả
 
       - name: Commit and push
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
+          git status
           git commit -m "Deploy Docusaurus site" || echo "No changes to commit"
           git push origin main
