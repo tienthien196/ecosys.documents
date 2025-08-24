@@ -12,10 +12,10 @@ const config: Config = {
   },
 
   url: 'https://tienthien196.github.io',
-  baseUrl: '/',
+  baseUrl: '/documents/',
 
   organizationName: 'tienthien196',
-  projectName: 'tienthien196.github.io',
+  projectName: 'documents',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
