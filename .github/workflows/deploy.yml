@@ -8,7 +8,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source code
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -20,12 +21,34 @@ jobs:
 
       - name: Build website
         run: npm run build
+        # Kết quả sẽ nằm ở thư mục ./build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          publish_branch: main
-          force_orphan: false
-          keep_files: false  # Xóa file cũ, chỉ giữ file mới
+      # ----------------------------------------
+      # Checkout lại nhánh main để cập nhật file
+      # ----------------------------------------
+      - name: Fetch main branch
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git fetch origin main
+          git checkout main
+
+      - name: Remove old site files (giữ lại .github và README.md)
+        run: |
+          # Xóa tất cả file ngoại trừ .github và README.md
+          find . -maxdepth 1 -name ".github" -o -name "README.md" -o -name "." -o -name ".." | grep -v "^\.$" | grep -v "\.\.$" | xargs -I {} echo "Keeping {}"
+          find . -maxdepth 1 ! -name ".github" ! -name "README.md" ! -name "." ! -name ".." -exec rm -rf {} +
+
+      - name: Copy built files to root
+        run: |
+          cp -r build/* ./
+          git add .
+          git status  # Xem các file được thêm
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Deploy Docusaurus site" || echo "No changes to commit"
+          git push origin main
