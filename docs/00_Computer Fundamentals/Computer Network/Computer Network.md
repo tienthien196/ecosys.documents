@@ -1,5 +1,5 @@
 ---
-title: Computer Network
+title: OSI models
 sidebar_position: 1
 ---
 
@@ -161,7 +161,7 @@ sidebar_position: 1
 - [(cheatsheet)](./Organization.md)
 
 
-## 1. OSI ↔ TCP/IP 
+## Đầu tiên là hiểu về OSI - TCP/IP models
 
 
 ```
@@ -203,10 +203,9 @@ sidebar_position: 1
                 Encapsulation                         Decapsulation
 ```
 
-## Đầu tiên là hiểu về OSI model
 
-## Application
-tầng: 7
+
+## tầng 7: Application
     DNS
     tạo ra dữ liệu n từ gói tin ->
     giao thức  đặt quy tắt -> add header 
@@ -336,9 +335,7 @@ DNS : khởi nguồn ứng dụng
 ---
 
 
-## xác thực 
-
-tầng 6: 
+## tầng 6: Presentation
     mã hoá __package__ , cer , bảo mật , nén gói tin 
 
   - 
@@ -379,17 +376,14 @@ Nhiều người nghĩ:
 - SSH tunnel
 - Tường lửa + IP whitelisting
 
-## sesion 
-tầng 5: 
+##  tầng 5: sesion
     session, token , cookie
 > tránh nhầm lần session trạng thái và package data
 - trong L5 session chỉ là trạng thái lí thuyết ko có gói tin
 - đưa ra chi thị socket
 
 
-## transport 
-
-tầng 4 : 
+## tầng 4 : transport 
     giao thức đáng tin cậy , port 
 ### Ports & Networking 
 
@@ -436,8 +430,7 @@ TCP Header:
   Sequence:     1000
   Flags:        SYN
 
-## Network
-tầng 3 :
+##  tầng 3 :Network
     add IP
 
 Máy tính không "hiểu" HTTP hay ENet — nó chỉ gửi/nhận gói tin IP chứa TCP hoặc UDP. 
@@ -453,8 +446,7 @@ IP Header:
   TTL:            64
 
 
-## Data link 
-tầng 2  :
+## tầng 2  : Data link 
     add MAC 
     đóng gói __package__
 
@@ -472,9 +464,7 @@ tầng 2  :
 ```
 - đóng gọi IP và macs thành Ethernet Frame
 
-## Physical
-
-tầng 1 : 
+## tầng 1 : Physical
     truyền bit qua CAP (sóng, ánh sáng )
 
 ### Các thiết bị mạng
@@ -558,7 +548,7 @@ Bạn → ISP → [Server VPN] → Internet
           └─────────────┘
 ```
 
-## 2. COMPUTER NETWORKS  
+## 2. COMPUTER NETWORKS CHEATSHEET  
 
 ### 2.2. Physical Layer
 - Transmission media
