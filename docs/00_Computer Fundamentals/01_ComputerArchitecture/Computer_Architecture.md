@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-sidebar_label: ComputerArchitecture
+sidebar_label: Computer Architecture
 ---
 
 # Computer Architecture
@@ -197,6 +197,131 @@ sidebar_label: ComputerArchitecture
 | - Giao diện ABI (Application Binary Interface)              |
 +-------------------------------------------------------------+
 ```
+
+
+
+## 1. COMPUTER ARCHITECTURE  
+### 1.1. Digital Logic 
+- Boolean Algebra
+  - AND, OR, NOT, XOR
+  - NAND, NOR (universal gates)
+  - Truth tables
+  - Boolean expressions
+  - De Morgan's Laws
+- Logic Gates
+  - Transistor as switch
+  - CMOS technology
+  - Gate delay, fan-out
+- Combinational Circuits
+  - Multiplexer (MUX)
+  - Demultiplexer (DEMUX)
+  - Decoder
+  - Encoder
+  - Adder (Half Adder, Full Adder)
+  - Arithmetic Logic Unit (ALU) – basic design
+- Sequential Circuits
+  - Latch (SR Latch)
+  - Flip-Flop (D Flip-Flop, JK Flip-Flop)
+  - Clock signal
+  - Synchronous vs Asynchronous circuits
+  - Register
+  - Shift Register
+  - Counter (Binary Counter, Ring Counter)
+
+### 1.2. Processor Design (Thiết kế bộ xử lý)
+- Central Processing Unit (CPU)
+  - Control Unit (CU)
+  - Arithmetic Logic Unit (ALU)
+  - Registers (General-purpose, PC, IR, ACC, SP)
+- Datapath
+  - Instruction fetch, decode, execute
+  - Bus system (data bus, address bus, control bus)
+- Instruction Set Architecture (ISA)
+  - RISC vs CISC
+  - x86, ARM, RISC-V
+  - Instruction formats (opcode, operands)
+  - Addressing modes (immediate, direct, indirect, indexed)
+  - Assembly language
+    - Mnemonics
+    - Labels, directives
+    - Assembler (two-pass)
+- Control Unit Design
+  - Hardwired control
+  - Microprogrammed control
+  - Microcode
+
+### 1.3. Memory Hierarchy
+- Memory types
+  - Volatile vs Non-volatile
+  - RAM (DRAM, SRAM)
+  - ROM (PROM, EPROM, EEPROM, Flash)
+- Memory Organization
+  - Address space
+  - Byte addressing
+  - Endianness (Little-endian, Big-endian)
+  - Memory-mapped I/O
+- Cache Memory
+  - Cache hit / miss
+  - Hit rate, miss penalty
+  - Cache mapping (Direct-mapped, Fully associative, Set-associative)
+  - Replacement policies (LRU, FIFO, Random)
+  - Write policies (Write-through, Write-back)
+  - Cache coherence (in multi-core)
+- Virtual Memory
+  - Page, Frame
+  - Page table
+  - TLB (Translation Lookaside Buffer)
+  - Paging, segmentation
+  - Page fault
+  - Demand paging
+  - Working set model
+
+### 1.4. Storage Systems
+- Secondary storage
+  - Hard Disk Drive (HDD)
+    - Platter, track, sector
+    - Seek time, rotational latency, transfer time
+  - Solid State Drive (SSD)
+    - NAND flash
+    - Wear leveling
+    - TRIM command
+- Tertiary storage
+  - Magnetic tape
+  - Optical storage (CD, DVD, Blu-ray)
+
+### 1.5. Input/Output (I/O) Systems
+- I/O interfaces
+  - Programmed I/O
+  - Interrupt-driven I/O
+  - Direct Memory Access (DMA)
+- I/O controllers
+- Buses
+  - System bus
+  - Expansion buses (PCI, PCIe, USB)
+- Interrupts
+  - Interrupt vector table
+  - Interrupt service routine (ISR)
+  - Maskable vs Non-maskable interrupts
+
+### 1.6. Performance & Parallelism
+- CPU Performance
+  - Clock cycle, clock rate
+  - CPI (Cycles Per Instruction)
+  - MIPS, FLOPS
+  - Amdahl's Law
+- Pipelining
+  - Pipeline stages (IF, ID, EX, MEM, WB)
+  - Pipeline hazards
+    - Structural hazard
+    - Data hazard (forwarding, stalling)
+    - Control hazard (branch prediction)
+- Parallel Architectures
+  - Multi-core processors
+  - SIMD (Single Instruction, Multiple Data)
+  - Superscalar, Out-of-order execution
+  - SISD, SIMD, MISD, MIMD (Flynn's Taxonomy)
+
+---
 
 :::note Computer Architecture
 Computer architecture is a crucial concept in computer science. It involves designing and organizing computer systems at
