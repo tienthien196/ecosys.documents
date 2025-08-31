@@ -5,6 +5,39 @@ sidebar_position: 1
 
 # Computer Network
 
+
+```
+                         COMPUTER NETWORKS
+                                 |
+          ------------------------------------------------
+          |                      |                       |
+     NETWORK MODELS         NETWORK TYPES         NETWORK DEVICES
+          |                      |                       |
+    ----------------      ---------------        -------------------
+    |              |      |      |      |        |         |         |
+  OSI Model    TCP/IP     LAN   WAN   MAN      Router   Switch   Hub
+  (7 layers)   Model      (Local) (Global)     (L3)     (L2)     (L1)
+    |              |      PAN   WLAN  CAN        Firewall  Modem   Access Point
+    |              |
+  -------     ------------
+  |     |     |    |    |
+L7:App L6:Pres L5:Trans L4:Transport L3:Network L2:Data Link L1:Physical
+ |      |       |         |            |           |             |
+HTTP,  TLS/SSL  TCP, UDP   IP, ICMP     MAC, PPP    Ethernet     Cable, WiFi,
+FTP,   MIME    (Reliable/ (Logical     (Frames,     (Switching)  Fiber, Radio
+SMTP           Unreliable) Addr)      Switching)
+                 |
+             FLOW & ERROR CONTROL
+                 |
+        ---------------------
+        |                   |
+   Flow Control        Error Control
+   (Stop-and-Wait,     (Parity, CRC,
+    Sliding Window)     Checksum, ARQ)
+```
+
+
+
 ## Map
 
 ```
@@ -430,7 +463,7 @@ TCP Header:
   Sequence:     1000
   Flags:        SYN
 
-##  tầng 3 :Network
+##  tầng 3 : Network
     add IP
 
 Máy tính không "hiểu" HTTP hay ENet — nó chỉ gửi/nhận gói tin IP chứa TCP hoặc UDP. 
@@ -495,11 +528,11 @@ IP Header:
   - Ethernet: Xung điện trên cáp.
   - Wi-Fi: Sóng radio (2.4GHz / 5GHz).
 
-### Nat : 
+### Nat: 
 - dịch IP public route thành các ip nội bộ trong lan 
  nat block ip packhage vì nó ko biết gói tin từ router vào là của local nào-> trước đó ko có connect ra , router huỷ gói tin 
 
-### fire wall: 
+### Fire wall: 
 - ngoài cấp phép chặn IP và mở port local thì nó còn làm gì nữa 
 
  ISP (Internet Service Provider)
