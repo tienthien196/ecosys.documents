@@ -1,0 +1,160 @@
+Big Data and Data Mining
+
+Introduction to Big Data and Information
+The Signal and the Noise: Why So Many Predictions Fail—But Some Don't by Nate Silver
+The Tipping Point: How Little Things Can Make a Big Difference by Malcolm Gladwell
+Moneyball: The Art of Winning an Unfair Game by Michael Lewis
+Invisible Women: Data Bias in a World Designed for Men by Caroline Criado Perez
+The Wisdom of Crowds: Why the Many Are Smarter Than the Few and How Collective Wisdom Shapes Business, Economies, Societies and Nations by James Surowiecki
+Everybody Lies: Big Data, New Data, and What the Internet Can Tell Us About Who We Really Are by Seth Stephens-Davidowitz
+Superforecasting: The Art and Science of Prediction by Philip E. Tetlock
+The Misbehavior of Markets: A Fractal View of Financial Turbulence by Benoît B. Mandelbrot
+Quiet: The Power of Introverts in a World That Can't Stop Talking by Susan Cain
+Big Data: A Revolution That Will Transform How We Live, Work, and Think by Viktor Mayer-Schönberger
+Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy by Cathy O'Neil
+The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century by David Salsburg
+A Human's Guide to Machine Intelligence: How Algorithms Are Shaping Our Lives and How We Can Stay in Control by Kartik Hosanagar
+Freakonomics: A Rogue Economist Explores the Hidden Side of Everything by Steven D. Levitt
+Thinking, Fast and Slow by Daniel Kahneman
+Predictably Irrational: The Hidden Forces That Shape Our Decisions by Dan Ariely
+Dataclysm: Who We Are by Christian Rudder
+Fooled by Randomness: The Hidden Role of Chance in Life and in the Markets by Nassim Nicholas Taleb
+The Long Tail: Why the Future of Business is Selling Less of More by Chris Anderson
+The Creative Destruction of Medicine: How the Digital Revolution Will Create Better Health Care by Eric J. Topol
+Bringing Down the House: The Inside Story of Six M.I.T. Students Who Took Vegas for Millions by Ben Mezrich
+Introduction to Data Science
+Data Science from Scratch by Joel Grus
+Machine Learning: An Introduction Math Guide for Beginners to Understand Data Science Through the Business Applications by Samuel Hack
+Doing Data Science: Straight Talk from the Frontline by Cathy O'Neil and Rachel Schutt
+Data Science for Business: What you need to know about data mining and data-analytic thinking by Foster Provost
+How to Lie with Statistics by Darrell Huff
+Algorithms to Live By: What Computers Can Teach Us About Solving Human Problems by Brian Christian
+The Ethical Algorithm: The Science of Socially Aware Algorithm Design by Michael Kearns
+Think Like a Data Scientist: Tackle the data science process step-by-step by Brian Godsey
+Hello World: Being Human in the Age of Algorithms by Hannah Fry
+Data Smart: Using Data Science to Transform Information into Insight by John W. Foreman
+Naked Statistics: Stripping the Dread from the Data by Charles Wheelan
+Statistical Learning
+The Elements of Statistical Learning by Jerome H. Friedman, Robert Tibshirani, and Trevor Hastie
+An Introduction to Statistical Learning: With Applications in R by Gareth James, Trevor Hastie, Robert Tibshirani, Daniela Witten
+Advanced R by Hadley Wickham
+An Introduction to Applied Multivariate Analysis with R by Brian S. Everitt
+R in Action by Robert Kabacoff
+R for Everyone: Advanced Analytics and Graphics by Jared P. Lander
+The R Book by Michael J. Crawley
+R for Data Science: Import, Tidy, Transform, Visualize, and Model Data by Hadley Wickham
+Statistics in Plain English by Timothy C. Urdan
+What is a P-Value Anyway? 34 Stories to Help You Actually Understand Statistics by Andrew J. Vickers
+All of Statistics: A Concise Course in Statistical Inference by Larry Wasserman
+Regression Modeling Strategies: With Applications to Linear Models, Logistic Regression, and Survival Analysis by Frank E. Harrell Jr.
+Data Mining
+It is the process of extracting a specific pattern from large datasets. It's based on mathematical and scientific methods to identify patterns or trends. it's generally used for the process of extracting, cleaning, learning and predicting from data.
+
+Introduction to Data Mining by Vipin Kumar
+Introduction to Data Mining by Pang-Ning Tan
+Data Mining: Concepts and Techniques by Jiawei Han
+Mining of Massive Datasets by Anand Rajaraman and Jeffrey Ullman
+Data Mining and Analysis: Fundamental Concepts and Algorithms by Mohammed J. Zaki and Wagner Meira
+Data Mining with Rattle and R: The Art of Excavating Data for Knowledge Discovery by Graham J. Williams
+Bayesian Methods for Hackers: Probabilistic Programming and Bayesian Inference by Cameron Davidson-Pilon
+Data Mining with R: Learning with Case Studies by Luis Torgo
+Data Mining Techniques: For Marketing, Sales, and Customer Relationship Management by Michael J. A. Berry, Gordon S. Linoff
+Mining the Social Web: Data Mining Facebook, Twitter, LinkedIn, Instagram, GitHub, and More by Matthew A. Russell and Mikhail Klassen
+Data Mining: Practical Machine Learning Tools and Techniques by Ian H. Witten
+Data Analysis
+It is the process of ordering and organizing raw data in order to determine useful insights and decisions.
+
+Data Analysis with Open Source Tools: A Hands-On Guide for Programmers and Data Scientists by Philipp K. Janert
+Multivariate Data Analysis by Joseph F. Hair Jr.
+Bayesian Data Analysis by Andrew Gelman
+Web Analytics 2.0: The Art of Online Accountability & Science of Customer Centricity by Avinash Kaushik
+Data Analysis Using Regression and Multilevel/Hierarchical Models by Andrew Gelman
+Python for Data Analysis by Wes McKinney
+Competing on Analytics: Updated, with a New Introduction: The New Science of Winning by Thomas H. Davenport
+Forecasting: principles and practice by Rob J Hyndman
+Presenting Data Effectively: Communicating Your Findings for Maximum Impact by Stephanie D.H. Evergreen
+Data Analysis - Information Graphics
+The Visual Display of Quantitative Information by Edward R. Tufte
+The Functional Art: An Introduction to Information Graphics and Visualization by Alberto Cairo
+Visualize This: The FlowingData Guide to Design, Visualization, and Statistics by Nathan Yau
+Beautiful Visualization: Looking at Data through the Eyes of Experts by Julie Steele
+Say It with Charts: The Executive's Guide to Visual Communication by Gene Zelazny
+Bayes Theorem: A Visual Introduction For Beginners by Dan Morris
+Decision Trees and Random Forests: A Visual Introduction For Beginners: A Simple Guide to Machine Learning with Decision Trees by Chris Smith
+The Truthful Art: Data, Charts, and Maps for Communication by Alberto Cairo
+OLAP (Online Analytical Processing)
+ClickHouse - a fast open-source OLAP database management system
+Apache Druid - a high performance real-time analytics database
+Apache Pinot - Realtime distributed OLAP datastore
+Hadoop
+Hadoop: The Definitive Guide by Tom White, Doug Cutting
+Hadoop in Action by Chuck Lam
+Hadoop Operations by Eric Sammer
+Hadoop in Practice by Alex Holmes
+Professional Hadoop Solutions by Alexey Yakubovich, Boris Lublinsky, and Kevin T. Smith
+Programming Pig by Alan Gates
+Data Analytics with Hadoop: An Introduction for Data Scientists by Benjamin Bengfort and Jenny Kim
+Expert Hadoop Administration: Managing, Tuning, and Securing Spark, YARN, and HDFS by Sam R. Alapati
+Hadoop Application Architectures: Designing Real-World Big Data Applications by Gwen Shapira, Ted Malaska Jonathan S Mark Grover
+Hadoop Security: Protecting Your Big Data Platform by Ben Spivey and Joey Echeverria
+Architecting Modern Data Platforms: A Guide to Enterprise Hadoop at Scale by Jan Kunigk, Ian Buss, Paul Wilkinson, Lars George
+Hive, HBase, Spark and so on
+Programming Hive by Dean Wampler, Edward Capriolo, and Jason Rutherglen
+MapReduce Design Patterns: Building Effective Algorithms and Analytics for Hadoop and Other Systems by Adam Shook and Donald Miner
+HBase: The Definitive Guide by Lars George
+Learning Spark: Lightning-Fast Big Data Analysis by Holden Karau, Andy Konwinski, Patrick Wendell, Matei Zaharia
+Spark: The Definitive Guide: Big Data Processing Made Simple by Bill Chambers. Matei Zaharia
+Learning Spark by Mark Hamstra
+MapReduce Design Patterns: Building Effective Algorithms and Analytics for Hadoop and Other Systems by Adam Shook and Donald Miner
+Big Data Engineering
+Fundamentals of Data Engineering: Plan and Build Robust Data Systems by Joe Reis, Matt Housley
+Data Pipelines Pocket Reference: Moving and Processing Data for Analytics by James Densmore
+The Self-Service Data Roadmap: Democratize Data and Reduce Time to Insight (2002) by Sandeep Uttamchandani
+Designing Cloud Data Platforms by Danil Zburivsky, Lynda Partner
+Data Governance: The Definitive Guide: People, Processes, and Tools to Operationalize Data Trustworthiness (2021) by Evren Eryurek, Uri Gilad, Valliappa Lakshmanan, Anita Kibunguchy-Grant, Jessi Ashdown
+Data Management at Scale: Best Practices for Enterprise Architecture (2020) by Piethein Strengholt
+The Self-Service Data Roadmap: Democratize Data and Reduce Time to Insight (2020) by Sandeep Uttamchandani
+Big Data: Principles and best practices of scalable realtime data systems (2015) by Nathan Marz, James Warren
+Foundations for Architecting Data Solutions: Managing Successful Data Projects (2018) by Ted Malaska, Jonathan Seidman
+The Enterprise Big Data Lake: Delivering the Promise of Big Data and Data Science (2019) by Alex Gorelik
+Data Pipelines Pocket Reference: Moving and Processing Data for Analytics (2021) by James Densmore
+
+Crawler and Anti-Crawler
+
+Web Scraping with Python
+
+Web Scraping with Python (3rd, 2024) by Ryan Mitchell [4.18, 403]
+Hands-On Web Scraping with Python: Extract quality data from the web using effective Python techniques (2nd, 2023) by Anish Chapagain
+Python Automation Cookbook: 75 Python automation ideas for web scraping, data wrangling, and processing Excel, reports, emails, and more (2nd, 2020) by Jaime Buelta
+Mining the Social Web: Data Mining Facebook, Twitter, LinkedIn, Instagram, GitHub, and More (3rd, 2019) by Matthew A. Russell and Mikhail Klassen [3.73, 373]
+Mining Social Media: Finding Stories in Internet Data (2019) by Lam Thuy Vo
+Some more
+
+Getting Structured Data from the Internet: Running Web Crawlers/Scrapers on a Big Data Production Scale (2020) by Jay M. Patel
+Practical Web Scraping for Data Science: Best Practices and Examples with Python (2018) by Seppe vanden Broucke and Bart Baesens
+Python Web Scraping Cookbook: Over 90 proven recipes to get you scraping with Python, micro services, Docker and AWS (2018) by Michael Heydt
+Website Scraping with Python: Using BeautifulSoup and Scrapy (2018) by Gábor László Hajba
+Python 3网络爬虫开发实战 by 崔庆才
+Robots.txt
+
+Robotstxt.org
+Introduction to robots.txt
+JavaScript Reverse Engineering & Deobfuscation
+
+反爬虫AST原理与还原混淆实战 by 李岳阳、卓斌
+JS Deobfuscation Tools
+JavaScript Deobfuscator
+JSNice
+JS Formatting Tools
+Prettier
+ESLint
+Android Reverse Engineering
+
+--
+
+Criminal Law
+
+第二百五十三条之一：【侵犯公民个人信息罪】
+第二百八十五条：【非法侵入计算机信息系统罪;非法获取计算机信息系统数据、非法控制计算机信息系统罪;提供侵入、非法控制计算机信息系统程序、工具罪】
+第二百八十六条：【破坏计算机信息系统罪】
+明确越界网络爬虫行为的刑事处罚边界

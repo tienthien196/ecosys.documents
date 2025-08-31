@@ -1,6 +1,12 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+
+
+const math = require('remark-math');
+const katex = require('rehype-katex');
 
 const config: Config = {
   title: 'DOCS',
@@ -12,10 +18,10 @@ const config: Config = {
   },
 
   url: 'https://tienthien196.github.io',
-  baseUrl: '/documents/',
+  baseUrl: '/ecosys.documents/',
 
   organizationName: 'tienthien196',
-  projectName: 'documents',
+  projectName: 'ecosys.documents',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -31,14 +37,30 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
         },
-        blog: {},
+        blog: {
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
+        },
         theme: {
           customCss: './src/css/custom.css',
-        },
+        },  
       } satisfies Preset.Options,
+      
     ],
   ],
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-wvUvB2KN7pQCO+U/wS9GehG+jw/adJzi10BGSAdoo6gWQBaIj++ImQxGcH2CqkGp',
+      crossorigin: 'anonymous',
+    },
+  ],
+
 
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
