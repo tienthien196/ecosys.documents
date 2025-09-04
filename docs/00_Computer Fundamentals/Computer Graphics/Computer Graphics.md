@@ -1,3 +1,8 @@
+
+
+
+
+---
 ```
                       ┌──────────────────────┐
                       │   COMPUTER GRAPHICS  │
@@ -239,9 +244,9 @@ Projection  Project   Culling
 
 7. **Z-Buffer Depth Value**  
    $$
-   z_{\text{norm}} = \frac{z_{\text{view}} \cdot (f+n) + 2fn}{z_{\text{view}} \cdot (f-n)}
+   z_n = \frac{z_v (f + n) + 2fn}{z_v (f - n)}
    $$
-   where \( n \)=near, \( f \)=far, \( z_{\text{view}} \) = depth in view space.
+   where \( z_v \) = view space depth, \( n \)=near, \( f \)=far.
 
 ---
 

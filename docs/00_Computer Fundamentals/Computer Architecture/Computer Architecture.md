@@ -4,6 +4,7 @@ sidebar_label: Computer Architecture
 ---
 
 # Computer Architecture
+---
 
 ```
 +---------------------+     +----------------------------+
