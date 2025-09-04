@@ -3,20 +3,417 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.8.1">
-<title data-rh="true">Compiler | DOCS</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://tienthien196.github.io/ecosys.documents/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://tienthien196.github.io/ecosys.documents/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://tienthien196.github.io/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Compiler | DOCS"><link data-rh="true" rel="icon" href="/ecosys.documents/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://tienthien196.github.io/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/"><link data-rh="true" rel="alternate" href="https://tienthien196.github.io/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/" hreflang="en"><link data-rh="true" rel="alternate" href="https://tienthien196.github.io/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Compiler","item":"https://tienthien196.github.io/ecosys.documents/docs/Systems & Innovation/Systems/Compiler/"}]}</script><link rel="alternate" type="application/rss+xml" href="/ecosys.documents/blog/rss.xml" title="DOCS RSS Feed">
+<title data-rh="true">Compiler | DOCS</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://tienthien196.github.io/ecosys.documents/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://tienthien196.github.io/ecosys.documents/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://tienthien196.github.io/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Compiler | DOCS"><meta data-rh="true" name="description" content="1. COMPILER"><meta data-rh="true" property="og:description" content="1. COMPILER"><link data-rh="true" rel="icon" href="/ecosys.documents/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://tienthien196.github.io/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/"><link data-rh="true" rel="alternate" href="https://tienthien196.github.io/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/" hreflang="en"><link data-rh="true" rel="alternate" href="https://tienthien196.github.io/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Compiler","item":"https://tienthien196.github.io/ecosys.documents/docs/Systems & Innovation/Systems/Compiler/"}]}</script><link rel="alternate" type="application/rss+xml" href="/ecosys.documents/blog/rss.xml" title="DOCS RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/ecosys.documents/blog/atom.xml" title="DOCS Atom Feed">
 
 
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-wvUvB2KN7pQCO+U/wS9GehG+jw/adJzi10BGSAdoo6gWQBaIj++ImQxGcH2CqkGp" crossorigin="anonymous"><link rel="stylesheet" href="/ecosys.documents/assets/css/styles.88c03631.css">
-<script src="/ecosys.documents/assets/js/runtime~main.f1e78955.js" defer="defer"></script>
-<script src="/ecosys.documents/assets/js/main.bad489e2.js" defer="defer"></script>
+<script src="/ecosys.documents/assets/js/runtime~main.400cc6b5.js" defer="defer"></script>
+<script src="/ecosys.documents/assets/js/main.16f794b5.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
 <symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
 </defs></svg>
-<script>!function(){var t="light";var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",e||t),document.documentElement.setAttribute("data-theme-choice",e||t)}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/ecosys.documents/img/344451.jpg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top navbar--dark"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/ecosys.documents/"><div class="navbar__logo"><img src="/ecosys.documents/img/344451.jpg" alt="TNT Engine Logo" class="themedComponent_mlkZ themedComponent--light_NVdE" height="50" width="50"><img src="/ecosys.documents/img/344451.jpg" alt="TNT Engine Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="50" width="50"></div><b class="navbar__title text--truncate"></b></a><a aria-current="page" class="navbar__item navbar__link nav-button navbar__link--active" href="/ecosys.documents/docs/category/computer-network">DOCS</a><a class="navbar__item navbar__link nav-button" href="/ecosys.documents/blog">BLOG</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="nav-button search-btn navbarSearchContainer_Bca1"></div><a href="https://github.com/tienthien196" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link nav-button github-btn">GITHUB<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS darkNavbarColorModeToggle_X3D1" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ecosys.documents/docs/category/computer-network">Computer Fundamentals</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/">Systems &amp; Innovation</a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/">Systems</a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/">Compiler</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Operating Systems/">Operating Systems</a></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ecosys.documents/docs/Development Core/SEC/CEH">Development Core</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ecosys.documents/docs/Tutorials/intro">Tutorials</a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/ecosys.documents/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Systems &amp; Innovation</span></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Systems</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Compiler</span></li></ul></nav><div class="theme-doc-markdown markdown"><header><h1>Compiler</h1></header><div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">                            COMPILER ROADMAP</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                   |</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        ---------------------------------------------------------</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        |                         |                             |</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   PHASE 1: FOUNDATIONS     PHASE 2: COMPILER STAGES     PHASE 3: ADVANCED TOPICS</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        |                         |                             |</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -------------------    --------------------------    --------------------------</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  |         |       |    |        |        |       |    |            |           |</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Programming  Theory  Math  Lexical   Syntax    Semantic   Optimization  Code Gen   Runtime</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  Languages   of Comp. (Discrete,  Analysis   Analysis    Analysis     (IR → ASM)   System</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  (C, Python)  (Automata,  Linear Alg)  (Tokenizer)  (Parser)     (Type Check)   (Constant Folding,  (x86, ARM)  (GC, Stack,</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              Formal Lang)                         (AST)                      Loop Unrolling)             Heap)</span><br></span></code></pre></div></div></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/ecosys.documents/docs/Computer Fundamentals/Computer Architecture/"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Computer Architecture</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Operating Systems/"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Operating Systems</div></a></nav></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/ecosys.documents/docs/intro">Tutorial</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://x.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">X<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/ecosys.documents/blog">Blog</a></li><li class="footer__item"><a href="https://github.com/tienthien196" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">© 2025 Docs support GM Finn. Built with Docusaurus.</div></div></div></footer></div>
+<script>!function(){var t="light";var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",e||t),document.documentElement.setAttribute("data-theme-choice",e||t)}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/ecosys.documents/img/344451.jpg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top navbar--dark"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/ecosys.documents/"><div class="navbar__logo"><img src="/ecosys.documents/img/344451.jpg" alt="TNT Engine Logo" class="themedComponent_mlkZ themedComponent--light_NVdE" height="50" width="50"><img src="/ecosys.documents/img/344451.jpg" alt="TNT Engine Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="50" width="50"></div><b class="navbar__title text--truncate"></b></a><a aria-current="page" class="navbar__item navbar__link nav-button navbar__link--active" href="/ecosys.documents/docs/category/computer-network">DOCS</a><a class="navbar__item navbar__link nav-button" href="/ecosys.documents/blog">BLOG</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="nav-button search-btn navbarSearchContainer_Bca1"></div><a href="https://github.com/tienthien196" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link nav-button github-btn">GITHUB<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS darkNavbarColorModeToggle_X3D1" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ecosys.documents/docs/category/computer-network">Computer Fundamentals</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/ecosys.documents/docs/Systems &amp; Innovation/Innovation Techs/Artificial Intelligence/">Systems &amp; Innovation</a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/ecosys.documents/docs/Systems &amp; Innovation/Innovation Techs/Artificial Intelligence/">Innovation Techs</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/">Systems</a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Compiler/">Compiler</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Operating Systems/">Operating Systems</a></li></ul></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ecosys.documents/docs/Development Core/SEC/CEH">Development Core</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ecosys.documents/docs/Tutorials/intro">Tutorials</a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/ecosys.documents/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Systems &amp; Innovation</span></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Systems</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Compiler</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Compiler</h1></header><div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">                            COMPILER ROADMAP</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">                                   |</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        ---------------------------------------------------------</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        |                         |                             |</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   PHASE 1: FOUNDATIONS     PHASE 2: COMPILER STAGES     PHASE 3: ADVANCED TOPICS</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        |                         |                             |</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -------------------    --------------------------    --------------------------</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  |         |       |    |        |        |       |    |            |           |</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Programming  Theory  Math  Lexical   Syntax    Semantic   Optimization  Code Gen   Runtime</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  Languages   of Comp. (Discrete,  Analysis   Analysis    Analysis     (IR → ASM)   System</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  (C, Python)  (Automata,  Linear Alg)  (Tokenizer)  (Parser)     (Type Check)   (Constant Folding,  (x86, ARM)  (GC, Stack,</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              Formal Lang)                         (AST)                      Loop Unrolling)             Heap)</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1-compiler">1. COMPILER<a href="#1-compiler" class="hash-link" aria-label="Direct link to 1. COMPILER" title="Direct link to 1. COMPILER">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="11-introduction-to-compilers">1.1. Introduction to Compilers<a href="#11-introduction-to-compilers" class="hash-link" aria-label="Direct link to 1.1. Introduction to Compilers" title="Direct link to 1.1. Introduction to Compilers">​</a></h3>
+<ul>
+<li>
+<p>Definition:<br>
+<!-- -->Chương trình chuyển đổi mã nguồn (source code) viết bằng ngôn ngữ cấp cao (C++, Java, Rust…)<br>
+<!-- -->thành mã máy (machine code) hoặc mã trung gian (intermediate code).</p>
+</li>
+<li>
+<p>Phân biệt với Interpreter:</p>
+<ul>
+<li><strong>Compiler</strong>: dịch toàn bộ → mã máy → chạy nhanh.</li>
+<li><strong>Interpreter</strong>: đọc và thực thi từng dòng → chậm hơn, nhưng debug dễ.</li>
+<li><strong>Just-In-Time (JIT)</strong>: kết hợp cả hai (ví dụ: Java JVM, V8 JavaScript engine).</li>
+</ul>
+</li>
+<li>
+<p>Các giai đoạn của Compiler:</p>
+<ol>
+<li><strong>Frontend</strong>: Phân tích mã nguồn.</li>
+<li><strong>Middle-end</strong>: Tối ưu hóa.</li>
+<li><strong>Backend</strong>: Sinh mã mục tiêu.</li>
+</ol>
+</li>
+<li>
+<p>Mục tiêu của Compiler:</p>
+<ul>
+<li>Chính xác (correctness)</li>
+<li>Hiệu suất (fast execution, low memory)</li>
+<li>Báo lỗi rõ ràng</li>
+<li>Tối ưu hóa tốt</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="12-compiler-phases-các-giai-đoạn">1.2. Compiler Phases (Các giai đoạn)<a href="#12-compiler-phases-các-giai-đoạn" class="hash-link" aria-label="Direct link to 1.2. Compiler Phases (Các giai đoạn)" title="Direct link to 1.2. Compiler Phases (Các giai đoạn)">​</a></h3>
+<ol>
+<li>
+<p><strong>Lexical Analysis (Scanner)</strong></p>
+<ul>
+<li>Input: Chuỗi ký tự (source code)</li>
+<li>Output: Chuỗi <strong>token</strong> (identifier, keyword, operator, literal)</li>
+<li>Công cụ: <strong>Regular expressions</strong>, <strong>Finite Automata</strong></li>
+<li>Ví dụ: <code>int x = 5;</code> → <code>int</code>, <code>x</code>, <code>=</code>, <code>5</code>, <code>;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Syntax Analysis (Parser)</strong></p>
+<ul>
+<li>Input: Tokens</li>
+<li>Output: <strong>Cây cú pháp (Parse Tree / AST)</strong></li>
+<li>Công cụ: <strong>Context-Free Grammar (CFG)</strong>, <strong>Parsers (LL, LR, LALR)</strong></li>
+<li>Phát hiện lỗi cú pháp: <code>x == 5 )</code> → missing <code>(</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Semantic Analysis</strong></p>
+<ul>
+<li>Kiểm tra ngữ nghĩa: kiểu dữ liệu, khai báo biến, scope</li>
+<li>Xây dựng <strong>Symbol Table</strong> (lưu tên biến, kiểu, scope, địa chỉ)</li>
+<li>Kiểm tra:<!-- -->
+<ul>
+<li>Type checking (int + string?)</li>
+<li>Undeclared variables</li>
+<li>Function signature mismatch</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Intermediate Code Generation</strong></p>
+<ul>
+<li>Tạo mã trung gian:<!-- -->
+<ul>
+<li><strong>Three-Address Code (TAC)</strong>: <code>t1 = a + b</code></li>
+<li><strong>Abstract Syntax Tree (AST)</strong></li>
+<li><strong>Control Flow Graph (CFG)</strong></li>
+</ul>
+</li>
+<li>Độc lập với kiến trúc máy → dễ tối ưu và porting</li>
+</ul>
+</li>
+<li>
+<p><strong>Optimization</strong></p>
+<ul>
+<li>Mục tiêu: Tăng tốc độ, giảm bộ nhớ, giảm năng lượng</li>
+<li>Loại:<!-- -->
+<ul>
+<li>Local (trong một basic block)</li>
+<li>Global (toàn hàm, dùng CFG)</li>
+<li>Loop optimization</li>
+<li>Inter-procedural (giữa các hàm)</li>
+</ul>
+</li>
+<li>Kỹ thuật:<!-- -->
+<ul>
+<li>Constant Folding: <code>x = 2 + 3</code> → <code>x = 5</code></li>
+<li>Dead Code Elimination</li>
+<li>Common Subexpression Elimination</li>
+<li>Loop Invariant Code Motion</li>
+<li>Strength Reduction (e.g., <code>x*2</code> → <code>x&lt;&lt;1</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Code Generation</strong></p>
+<ul>
+<li>Chuyển mã trung gian → mã máy (assembly hoặc object code)</li>
+<li>Gán biến vào thanh ghi (Register Allocation)</li>
+<li>Instruction Selection: chọn lệnh máy phù hợp</li>
+<li>Instruction Scheduling: tối ưu thứ tự lệnh để pipeline hiệu quả</li>
+</ul>
+</li>
+<li>
+<p><strong>Symbol Table Management</strong></p>
+<ul>
+<li>Được dùng xuyên suốt các giai đoạn</li>
+<li>Lưu: tên, kiểu, scope, kích thước, địa chỉ, thuộc tính</li>
+</ul>
+</li>
+<li>
+<p><strong>Error Handling</strong></p>
+<ul>
+<li>Phát hiện và báo lỗi ở mọi giai đoạn</li>
+<li>Recovery: tiếp tục phân tích sau lỗi (để phát hiện nhiều lỗi)</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="13-runtime-environment">1.3. Runtime Environment<a href="#13-runtime-environment" class="hash-link" aria-label="Direct link to 1.3. Runtime Environment" title="Direct link to 1.3. Runtime Environment">​</a></h3>
+<ul>
+<li>Activation Record (Stack Frame):<!-- -->
+<ul>
+<li>Lưu thông tin khi hàm được gọi:<!-- -->
+<ul>
+<li>Return address</li>
+<li>Parameters</li>
+<li>Local variables</li>
+<li>Temporary storage</li>
+<li>Previous frame pointer</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Stack vs Heap Allocation:<!-- -->
+<ul>
+<li>Stack: biến cục bộ, nhanh, tự động giải phóng</li>
+<li>Heap: <code>malloc</code>, <code>new</code> – quản lý thủ công hoặc GC</li>
+</ul>
+</li>
+<li>Parameter Passing:<!-- -->
+<ul>
+<li>Call by Value</li>
+<li>Call by Reference</li>
+<li>Call by Name (rare)</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="14-parsing-techniques">1.4. Parsing Techniques<a href="#14-parsing-techniques" class="hash-link" aria-label="Direct link to 1.4. Parsing Techniques" title="Direct link to 1.4. Parsing Techniques">​</a></h3>
+<ul>
+<li>
+<p><strong>Top-down Parsing</strong></p>
+<ul>
+<li>Bắt đầu từ gốc cây cú pháp</li>
+<li>LL(1): Left-to-right, Leftmost derivation, 1 token lookahead</li>
+<li>Dễ triển khai bằng đệ quy (Recursive Descent)</li>
+<li>Yêu cầu: không left recursion, không ambiguity</li>
+</ul>
+</li>
+<li>
+<p><strong>Bottom-up Parsing</strong></p>
+<ul>
+<li>Bắt đầu từ lá → xây cây lên</li>
+<li>LR(1), LALR(1): mạnh hơn LL, hỗ trợ nhiều ngữ pháp</li>
+<li>Dùng bảng parsing (action, goto)</li>
+<li>Công cụ: <strong>Yacc, Bison, ANTLR</strong></li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="15-code-optimization-techniques">1.5. Code Optimization Techniques<a href="#15-code-optimization-techniques" class="hash-link" aria-label="Direct link to 1.5. Code Optimization Techniques" title="Direct link to 1.5. Code Optimization Techniques">​</a></h3>
+<ul>
+<li>
+<p><strong>Local Optimizations</strong></p>
+<ul>
+<li>Constant Folding, Constant Propagation</li>
+<li>Copy Propagation</li>
+<li>Dead Code Elimination</li>
+</ul>
+</li>
+<li>
+<p><strong>Global Optimizations</strong></p>
+<ul>
+<li>Available Expressions</li>
+<li>Live Variable Analysis</li>
+<li>Reaching Definitions</li>
+</ul>
+</li>
+<li>
+<p><strong>Loop Optimizations</strong></p>
+<ul>
+<li>Loop Invariant Code Motion</li>
+<li>Induction Variable Elimination</li>
+<li>Loop Unrolling (giảm overhead)</li>
+</ul>
+</li>
+<li>
+<p><strong>Inter-procedural Optimization (IPO)</strong></p>
+<ul>
+<li>Inline expansion (function inlining)</li>
+<li>Devirtualization</li>
+<li>Whole-program optimization</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="16-register-allocation">1.6. Register Allocation<a href="#16-register-allocation" class="hash-link" aria-label="Direct link to 1.6. Register Allocation" title="Direct link to 1.6. Register Allocation">​</a></h3>
+<ul>
+<li>Mục tiêu: Gán biến vào thanh ghi (nhanh hơn bộ nhớ)</li>
+<li>Vấn đề: Số thanh ghi hữu hạn → cần <strong>spill</strong> (đưa biến ra memory)</li>
+<li>Phương pháp:<!-- -->
+<ul>
+<li><strong>Graph Coloring</strong>:<!-- -->
+<ul>
+<li>Xây dựng <strong>interference graph</strong> (biến A và B không thể dùng chung thanh ghi)</li>
+<li>Tô màu đồ thị → mỗi màu là một thanh ghi</li>
+</ul>
+</li>
+<li><strong>Linear Scan</strong> (dùng trong JIT)</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="17-garbage-collection-gc">1.7. Garbage Collection (GC)<a href="#17-garbage-collection-gc" class="hash-link" aria-label="Direct link to 1.7. Garbage Collection (GC)" title="Direct link to 1.7. Garbage Collection (GC)">​</a></h3>
+<ul>
+<li>Dùng trong ngôn ngữ có quản lý bộ nhớ tự động (Java, Python, Go)</li>
+<li>Mục tiêu: Tự động giải phóng bộ nhớ không dùng</li>
+<li>Các loại:<!-- -->
+<ul>
+<li><strong>Mark &amp; Sweep</strong>: đánh dấu + dọn dẹp</li>
+<li><strong>Stop-and-Copy</strong>: sao chép vùng sống sang nơi khác</li>
+<li><strong>Generational GC</strong>: chia heap theo tuổi (trẻ/dễ chết)</li>
+<li><strong>Reference Counting</strong>: đơn giản, nhưng không xử lý cyclic reference</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="18-compiler-frontend--backend">1.8. Compiler Frontend &amp; Backend<a href="#18-compiler-frontend--backend" class="hash-link" aria-label="Direct link to 1.8. Compiler Frontend &amp; Backend" title="Direct link to 1.8. Compiler Frontend &amp; Backend">​</a></h3>
+<ul>
+<li>
+<p><strong>Frontend</strong>:</p>
+<ul>
+<li>Ngôn ngữ cụ thể (C++, Python)</li>
+<li>Lexical, syntax, semantic analysis</li>
+<li>Output: Intermediate Representation (IR)</li>
+</ul>
+</li>
+<li>
+<p><strong>Backend</strong>:</p>
+<ul>
+<li>Kiến trúc cụ thể (x86, ARM, RISC-V)</li>
+<li>Code generation, register allocation, optimization</li>
+<li>Output: Machine code</li>
+</ul>
+</li>
+<li>
+<p><strong>IR (Intermediate Representation)</strong>:</p>
+<ul>
+<li>Độc lập ngôn ngữ và kiến trúc</li>
+<li>Ví dụ: LLVM IR, Java bytecode, Three-Address Code</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="19-tools--frameworks">1.9. Tools &amp; Frameworks<a href="#19-tools--frameworks" class="hash-link" aria-label="Direct link to 1.9. Tools &amp; Frameworks" title="Direct link to 1.9. Tools &amp; Frameworks">​</a></h3>
+<ul>
+<li><strong>Lex/Flex</strong>: Tạo lexer từ regex</li>
+<li><strong>Yacc/Bison</strong>: Tạo parser từ CFG</li>
+<li><strong>ANTLR</strong>: Parser generator mạnh, hỗ trợ nhiều ngôn ngữ</li>
+<li><strong>LLVM</strong>: Framework compiler hiện đại (dùng bởi Clang, Swift, Rust)<!-- -->
+<ul>
+<li>IR mạnh, tối ưu hóa tốt, hỗ trợ đa nền tảng</li>
+</ul>
+</li>
+<li><strong>GCC (GNU Compiler Collection)</strong>: Hỗ trợ nhiều ngôn ngữ (C, C++, Fortran…)</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="110-just-in-time-jit-compilation">1.10. Just-In-Time (JIT) Compilation<a href="#110-just-in-time-jit-compilation" class="hash-link" aria-label="Direct link to 1.10. Just-In-Time (JIT) Compilation" title="Direct link to 1.10. Just-In-Time (JIT) Compilation">​</a></h3>
+<ul>
+<li>Dịch tại thời điểm chạy (runtime)</li>
+<li>Dùng trong:<!-- -->
+<ul>
+<li>Java (JVM + HotSpot)</li>
+<li>JavaScript (V8 engine)</li>
+<li>.NET (CLR)</li>
+</ul>
+</li>
+<li>Ưu điểm:<!-- -->
+<ul>
+<li>Tối ưu hóa dựa trên hành vi thực tế (profile-guided)</li>
+<li>Linh hoạt, hiệu suất cao hơn interpreter</li>
+</ul>
+</li>
+<li>Nhược điểm:<!-- -->
+<ul>
+<li>Thời gian khởi động lâu hơn</li>
+<li>Tốn CPU để biên dịch lúc chạy</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>Compiler</div><div class="admonitionContent_BuS1"><p>A compiler is a sophisticated program that translates high-level source code into executable machine code.<br>
+<!-- -->It bridges the gap between human-readable programs and hardware execution.</p><p>Key components:</p><ul>
+<li><strong>Frontend</strong>: Analyzes syntax and semantics.</li>
+<li><strong>Intermediate Representation (IR)</strong>: Language- and machine-agnostic form.</li>
+<li><strong>Optimizer</strong>: Improves code efficiency.</li>
+<li><strong>Backend</strong>: Generates target-specific machine code.</li>
+</ul><p>Modern compilers emphasize:</p><ul>
+<li><strong>Correctness</strong> and <strong>portability</strong>.</li>
+<li><strong>Aggressive optimization</strong> for performance.</li>
+<li><strong>Rich error reporting</strong> for developer experience.</li>
+</ul><p>Understanding compilers helps in writing efficient code, debugging low-level issues, and designing programming languages.</p></div></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="formulas">Formulas<a href="#formulas" class="hash-link" aria-label="Direct link to Formulas" title="Direct link to Formulas">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="compiler">COMPILER
+|<a href="#compiler" class="hash-link" aria-label="Direct link to COMPILER
+|" title="Direct link to COMPILER
+|">​</a></h2>
+<p>|                        |                              |
+FRONTEND (Analysis)     OPTIMIZATION               BACKEND (Code Gen)
+|                        |                              |</p>
+<hr>
+<p>|      |      |       |        |        |         |         |         |
+Lexer  Parser  Semantic  Constant  Dead Code  Loop     Register  Instruction  Target
+(AST)   Analysis  Folding   Elimination  Unrolling  Allocation  Scheduling  Code</p>
+<ol>
+<li>
+<p><strong>Speedup from Optimization</strong></p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Speedup</mtext><mo>=</mo><mfrac><msub><mi>T</mi><mtext>before</mtext></msub><msub><mi>T</mi><mtext>after</mtext></msub></mfrac></mrow><annotation encoding="application/x-tex">\text{Speedup} = \frac{T_{\text{before}}}{T_{\text{after}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mord text"><span class="mord">Speedup</span></span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:2.1963em;vertical-align:-0.836em"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em"><span style="top:-2.314em"><span class="pstrut" style="height:3em"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">after</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em"><span class="pstrut" style="height:3em"></span><span class="frac-line" style="border-bottom-width:0.04em"></span></span><span style="top:-3.677em"><span class="pstrut" style="height:3em"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">before</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+</li>
+<li>
+<p><strong>Register Pressure</strong></p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Pressure</mtext><mo>=</mo><mfrac><mtext>Number of live variables</mtext><mtext>Available registers</mtext></mfrac></mrow><annotation encoding="application/x-tex">\text{Pressure} = \frac{\text{Number of live variables}}{\text{Available registers}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em"></span><span class="mord text"><span class="mord">Pressure</span></span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:2.2519em;vertical-align:-0.8804em"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em"><span style="top:-2.314em"><span class="pstrut" style="height:3em"></span><span class="mord"><span class="mord text"><span class="mord">Available registers</span></span></span></span><span style="top:-3.23em"><span class="pstrut" style="height:3em"></span><span class="frac-line" style="border-bottom-width:0.04em"></span></span><span style="top:-3.677em"><span class="pstrut" style="height:3em"></span><span class="mord"><span class="mord text"><span class="mord">Number of live variables</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+<blockquote>
+<p>1 → cần spill</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Available Expressions</strong><br>
+<!-- -->Một biểu thức <code>a + b</code> là &quot;available&quot; tại điểm P nếu:</p>
+<ul>
+<li>Được tính trước P</li>
+<li>Không thay đổi giữa đó và P</li>
+</ul>
+</li>
+<li>
+<p><strong>Live Variable</strong><br>
+<!-- -->Biến <code>x</code> là &quot;live&quot; tại điểm P nếu:</p>
+<ul>
+<li>Sẽ được dùng sau P</li>
+<li>Và chưa được gán lại</li>
+</ul>
+</li>
+<li>
+<p><strong>Loop Invariant Cost</strong><br>
+<!-- -->Nếu biểu thức trong vòng lặp không đổi → di chuyển ra ngoài:</p>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Savings</mtext><mo>=</mo><mo stretchy="false">(</mo><mtext>Iterations</mtext><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>×</mo><mtext>Cost per evaluation</mtext></mrow><annotation encoding="application/x-tex">\text{Savings} = (\text{Iterations} - 1) \times \text{Cost per evaluation}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em"></span><span class="mord text"><span class="mord">Savings</span></span><span class="mspace" style="margin-right:0.2778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mopen">(</span><span class="mord text"><span class="mord">Iterations</span></span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em"></span><span class="mord text"><span class="mord">Cost per evaluation</span></span></span></span></span></span>
+</li>
+</ol>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="rules-of-thumb">Rules of Thumb<a href="#rules-of-thumb" class="hash-link" aria-label="Direct link to Rules of Thumb" title="Direct link to Rules of Thumb">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-9010-rule-optimization">The 90/10 Rule (Optimization)<a href="#the-9010-rule-optimization" class="hash-link" aria-label="Direct link to The 90/10 Rule (Optimization)" title="Direct link to The 90/10 Rule (Optimization)">​</a></h3>
+<blockquote>
+<p>90% of execution time is spent in 10% of the code. Optimize hotspots.</p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="premature-optimization-rule-donald-knuth">Premature Optimization Rule (Donald Knuth)<a href="#premature-optimization-rule-donald-knuth" class="hash-link" aria-label="Direct link to Premature Optimization Rule (Donald Knuth)" title="Direct link to Premature Optimization Rule (Donald Knuth)">​</a></h3>
+<blockquote>
+<p>&quot;Premature optimization is the root of all evil.&quot;<br>
+<!-- -->→ Tối ưu hóa chỉ khi cần, sau khi đo hiệu suất.</p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parse-table-size-rule">Parse Table Size Rule<a href="#parse-table-size-rule" class="hash-link" aria-label="Direct link to Parse Table Size Rule" title="Direct link to Parse Table Size Rule">​</a></h3>
+<blockquote>
+<p>LR(1) tables lớn hơn LALR(1). Dùng LALR hoặc SLR nếu đủ.</p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="register-allocation-rule">Register Allocation Rule<a href="#register-allocation-rule" class="hash-link" aria-label="Direct link to Register Allocation Rule" title="Direct link to Register Allocation Rule">​</a></h3>
+<blockquote>
+<p>Nếu số biến sống &gt; số thanh ghi → phải spill. Giảm biến cục bộ.</p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="three-address-code-rule">Three-Address Code Rule<a href="#three-address-code-rule" class="hash-link" aria-label="Direct link to Three-Address Code Rule" title="Direct link to Three-Address Code Rule">​</a></h3>
+<blockquote>
+<p>Mỗi lệnh có tối đa 3 toán hạng: <code>x = y op z</code></p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ast-vs-parse-tree">AST vs Parse Tree<a href="#ast-vs-parse-tree" class="hash-link" aria-label="Direct link to AST vs Parse Tree" title="Direct link to AST vs Parse Tree">​</a></h3>
+<blockquote>
+<p>AST loại bỏ token không cần thiết (dấu chấm phẩy, ngoặc thừa).</p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="gc-pause-rule">GC Pause Rule<a href="#gc-pause-rule" class="hash-link" aria-label="Direct link to GC Pause Rule" title="Direct link to GC Pause Rule">​</a></h3>
+<blockquote>
+<p>Trong ứng dụng real-time, tránh GC lớn → dùng incremental hoặc real-time GC.</p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="llvm-rule">LLVM Rule<a href="#llvm-rule" class="hash-link" aria-label="Direct link to LLVM Rule" title="Direct link to LLVM Rule">​</a></h3>
+<blockquote>
+<p>Nếu bạn viết ngôn ngữ mới, hãy dùng LLVM làm backend.</p>
+</blockquote></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/ecosys.documents/docs/Systems &amp; Innovation/Innovation Techs/Artificial Intelligence/"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Artificial Intelligence</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/ecosys.documents/docs/Systems &amp; Innovation/Systems/Operating Systems/"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Operating Systems</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-compiler" class="table-of-contents__link toc-highlight">1. COMPILER</a><ul><li><a href="#11-introduction-to-compilers" class="table-of-contents__link toc-highlight">1.1. Introduction to Compilers</a></li><li><a href="#12-compiler-phases-các-giai-đoạn" class="table-of-contents__link toc-highlight">1.2. Compiler Phases (Các giai đoạn)</a></li><li><a href="#13-runtime-environment" class="table-of-contents__link toc-highlight">1.3. Runtime Environment</a></li><li><a href="#14-parsing-techniques" class="table-of-contents__link toc-highlight">1.4. Parsing Techniques</a></li><li><a href="#15-code-optimization-techniques" class="table-of-contents__link toc-highlight">1.5. Code Optimization Techniques</a></li><li><a href="#16-register-allocation" class="table-of-contents__link toc-highlight">1.6. Register Allocation</a></li><li><a href="#17-garbage-collection-gc" class="table-of-contents__link toc-highlight">1.7. Garbage Collection (GC)</a></li><li><a href="#18-compiler-frontend--backend" class="table-of-contents__link toc-highlight">1.8. Compiler Frontend &amp; Backend</a></li><li><a href="#19-tools--frameworks" class="table-of-contents__link toc-highlight">1.9. Tools &amp; Frameworks</a></li><li><a href="#110-just-in-time-jit-compilation" class="table-of-contents__link toc-highlight">1.10. Just-In-Time (JIT) Compilation</a></li></ul></li><li><a href="#formulas" class="table-of-contents__link toc-highlight">Formulas</a></li><li><a href="#compiler" class="table-of-contents__link toc-highlight">COMPILER
+|</a></li><li><a href="#rules-of-thumb" class="table-of-contents__link toc-highlight">Rules of Thumb</a><ul><li><a href="#the-9010-rule-optimization" class="table-of-contents__link toc-highlight">The 90/10 Rule (Optimization)</a></li><li><a href="#premature-optimization-rule-donald-knuth" class="table-of-contents__link toc-highlight">Premature Optimization Rule (Donald Knuth)</a></li><li><a href="#parse-table-size-rule" class="table-of-contents__link toc-highlight">Parse Table Size Rule</a></li><li><a href="#register-allocation-rule" class="table-of-contents__link toc-highlight">Register Allocation Rule</a></li><li><a href="#three-address-code-rule" class="table-of-contents__link toc-highlight">Three-Address Code Rule</a></li><li><a href="#ast-vs-parse-tree" class="table-of-contents__link toc-highlight">AST vs Parse Tree</a></li><li><a href="#gc-pause-rule" class="table-of-contents__link toc-highlight">GC Pause Rule</a></li><li><a href="#llvm-rule" class="table-of-contents__link toc-highlight">LLVM Rule</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/ecosys.documents/docs/intro">Tutorial</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://x.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">X<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/ecosys.documents/blog">Blog</a></li><li class="footer__item"><a href="https://github.com/tienthien196" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">© 2025 Docs support GM Finn. Built with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>
