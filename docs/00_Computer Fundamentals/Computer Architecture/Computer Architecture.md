@@ -7,52 +7,96 @@ sidebar_label: Computer Architecture
 ---
 
 ```
+==========================================================================================================
+                  KIẾN TRÚC MÁY TÍNH TOÀN DIỆN – BẢN CHẤT TỪ PHẦN CỨNG ĐẾN PHẦN MỀM
+==========================================================================================================
+
 +---------------------+     +----------------------------+
 |                     |     |                            |
 |   Input Devices     |<--->|       I/O Controller       |
-| (Keyboard, Mouse,   | Bus | (USB, SATA, PCIe, Network) |
-|  Webcam, Scanner)   |<--->|                            |
+| (Keyboard, Mouse,   | IRQ | (USB, SATA, PCIe, Network) |
+|  Webcam, Scanner)   |---->|                            |
 |                     |     +-------------+--------------+
-+---------------------+                   |
++---------------------+                   |  System I/O Bus
                                           |
-                                          | System I/O Bus
-                                          |
-+---------------------+                   v                   +---------------------+
++---------------------+                   |                   +---------------------+
 |                     |     +-----------------------------+   |                     |
 |   Output Devices    |<--->|         GPU (Graphics       |<->|    Display /        |
 | (Monitor, Printer,  | Bus |       Processing Unit)      |   |    Audio Devices    |
 |  Speakers)          |<--->|                             |   |                     |
 |                     |     +-----------------------------+   +---------------------+
+|                     |                   |  PCIe / HDMI / DP
 +---------------------+                   |
                                           |
-                                          | Front-Side Bus / DMI / PCIe
+                                          | PCIe / DMI
                                           v
                                 +----------------------+
-                                |       CPU            |
+                                |       CPU CORE       |
                                 | +------------------+ |
-                                | |   Control Unit   | |
-                                | +------------------+ |
-                                | |      ALU         | |
-                                | +------------------+ |
-                                | |   Registers      | |
-                                | | (R0, R1, PC, SP) | |
-                                | +------------------+ |
-                                | |  L1 Cache (I + D)| |
-                                | |  L2 Cache        | |
-                                | |  L3 Cache (Shared)||
-                                | +------------------+ |
-                                +-----------+----------+
-                                            |
-                                            | CPU Memory Bus (High Speed)
-                                            |
-                                            v
+                                | |  Instruction     | |
+                                | |    Fetch (IF)    | | ← Lấy lệnh từ L1i
+                                | +--------+---------+ |
+                                |          |           |
+                                | +--------v---------+ |
+                                | |  Decode (ID)     | | ← Giải mã → µops
+                                | +--------+---------+ |
+                                |          |           |
+                                | +--------v---------+     +-------------------------+
+                                | |  Scheduler &     | --> |   EXECUTION UNITS (×N)  |
+                                | |  Out-of-Order    |     | - ALU × 4               |
+                                | |  Engine          |     | - FPU × 2               |
+                                | +--------+---------+     | - Load/Store × 2        |
+                                |          |               | - Branch Unit           |
+                                |          v               +------------+------------+
+                                | +------------------+                  |
+                                | |  Execute (EX)    |<-----------------+
+                                | +--------+---------+
+                                |          |
+                                | +--------v---------+     +----------------------+
+                                | |  Memory Access   | --> |    DATA CACHE (L1d)  |
+                                | |  (MEM)           |     +-----------+----------+
+                                | +--------+---------+                 |
+                                |          |                           | L2 Cache (per-core)
+                                | +--------v---------+                 v
+                                | |  Write Back (WB) |       +-----------------------+
+                                | |                  |       |       REGISTER FILE   |
+                                | +--------+---------+       | (Rename, Bypass Logic)|
+                                +-----------+----------+     +-----------------------+
+                                            |                           ^
+                                            | High-Speed Interconnect   |
+                                            v                           |
+                       +------------------------------------------+     |
+                       |                L3 Cache                  |<----+ (Cache Coherence:
+                       | (Shared, inclusive, ring/mesh)           |     giữa các core)
+                       +-------------------+--------------------+
+                                           |
+                                           | Memory Bus (IMC)
+                                           v
                        +------------------------------------------+
                        |                Main Memory               |
                        | (RAM - DDR4/DDR5)                        |
-                       | +------------+  +------------+           |
-                       | |  Program   |  |   Data     |           |
-                       | |   Code     |  |   Section  |           |
-                       | +------------+  +------------+           |
+                       | +--------------------------------------+ |
+                       | |         User Space (Ring 3)          | |
+                       | |                                      | |
+                       | |  +----------------+                  | |
+                       | |  |  App Code      |                   | |
+                       | |  |  (MOV, ADD)    | syscall --------->|->| System Call Handler
+                       | |  +----------------+                   | | (kernel trap)
+                       | |  |  App Data      |                   | |
+                       | |  |  (variables)   |                   | |
+                       | |  +----------------+                   | |
+                       | |                                      | |
+                       | +--------------------------------------+ |
+                       | |       Kernel Space (Ring 0)          | |
+                       | |                                      | |
+                       | |  +------------------------+          | |
+                       | |  | Kernel Code & Data     |          | |
+                       | |  | - Process Table        |          | |
+                       | |  | - Page Tables          |          | |
+                       | |  | - Driver Code          |          | |
+                       | |  | - Interrupt Handlers   |          | |
+                       | |  +------------------------+          | |
+                       | +--------------------------------------+ |
                        +------------------------------------------+
                                             ^
                                             | Memory Bus
@@ -61,411 +105,213 @@ sidebar_label: Computer Architecture
                      +---------------------------------------------+
                      |                Motherboard                  |
                      | +-----------------+  +--------------------+ |
-                     | |   Chipset       |  |   Clock Generator  | |
-                     | | (Northbridge +  |  |                    | |
-                     | |  Southbridge or |  +--------------------+ |
-                     | |   PCH)          |                         |
-                     | |                 |                         |
-                     | | - Memory Ctrl.  |                         |
-                     | | - PCIe lanes    |                         |
-                     | | - SATA/USB ctrl|                         |
-                     | +-----------------+                         |
-                     +---------------------------------------------+
-                                            |
-                  +------------+           | PCI Express / SATA / USB
-                  |            |           |
-                  |  Storage   |<----------+
+                     | |   PCH / I/O Hub |  |   Clock Generator  | |
+                     | | (SATA, USB,     |  | (CPU Clock, Timer) | |
+                     | |  Audio, LAN)    |  +----------+---------+ |
+                     | +--------+--------+             |           |
+                     |   | PCIe | SATA | USB           | Timer IRQ
+                     |   | lanes|      |               v           |
+                     |   v      v      v         +-----------------+
+                     | +--------------------------------------------------+
+                     | |                   DMA Controller                 |
+                     | | (Cho phép I/O ghi trực tiếp vào RAM, bypass CPU) |
+                     | +--------------------------------------------------+
+                     +----------------------------------------------------+
+                                          |
+                  +------------+         | PCIe / SATA / USB
+                  |            |         |
+                  |  Storage   |<--------+
                   | Devices    |
-                  | (SSD, HDD, |<----------+ USB / Thunderbolt
+                  | (SSD, HDD, |<--------+ USB / Thunderbolt
                   |  Flash)    |
                   |            |
                   +------------+
+
++-------------------------+
+|        ROM (BIOS/UEFI)  |
+| (Firmware, khởi động OS)|
++-------------------------+
+       ^ (boot từ đây)
+       |
++------+
+| Power On → CPU reset → BIOS/UEFI → Bootloader → OS kernel
++--------------------------------------------------------+
+
+GHI CHÚ:
+- DMI: CPU ↔ PCH (không nối RAM)
+- Memory Bus (IMC): CPU ↔ RAM
+- GPU: kết nối qua PCIe, xử lý đồ họa độc lập
+- Cache Coherence: giữa L1/L2/L3 của các core
+- System Call: dùng lệnh `syscall` → trap → kernel
+- DMA: thiết bị I/O ghi trực tiếp vào RAM
+- IRQ: thiết bị gửi ngắt khi sẵn sàng
+- Timer: tạo interrupt định kỳ → OS lập lịch tiến trình
 ```
-
-```
-+==================================================================+
-|                   CPU CORE HIỆN ĐẠI (1 nhân)                     |
-|       (Dùng đồng thời tất cả kỹ thuật để đạt IPC > 3)            |
-+==================================================================+
-
-  +---------------------+
-  |  Instruction Fetch  | ← Lấy lệnh từ L1i Cache
-  +----------+----------+
-             |
-             v
-  +---------------------+
-  |  Instruction Decode | ← Giải mã lệnh (CISC → µops nếu cần)
-  +----------+----------+
-             |
-             v
-  +---------------------------+
-  |  μop Cache / Scheduler    | ← Chuẩn bị lệnh cho pipeline
-  |  (Out-of-Order Engine)    | ← Sắp xếp lại lệnh để tối ưu
-  +-------------+-------------+
-                |
-        +-------v--------+     +-------------------------+
-        |   PIPELINE     | --> |   EXECUTION UNITS (×N)  |
-        | (IF → ID → EX) |     | - ALU × 4               |
-        |                |     | - FPU × 2               |
-        |                |     | - Load/Store Unit × 2   |
-        |                |     | - Branch Unit           |
-        +----------------+     +------------+------------+
-                                            |
-                                            v
-                                 +----------------------+
-                                 |    DATA CACHE (L1d)  |
-                                 +-----------+----------+
-                                             |
-                                             v
-                                 +-----------------------+
-                                 |       REGISTER FILE   |
-                                 | (Rename, Bypass Logic)|
-                                 +-----------------------+
-
-                +-----------------------------------------+
-                |       CÁC KỸ THUẬT CÙNG HOẠT ĐỘNG        |
-                +-----------------------------------------+
-                | • PIPELINE: Dây chuyền lệnh (5–14 stage)|
-                | • SUPERSCALAR: 4–6 lệnh/chu kỳ          |
-                | • OUT-OF-ORDER: Tối ưu thứ tự thực thi  |
-                | • BRANCH PREDICTOR: Độ chính xác >95%   |
-                | • SIMD (AVX/NEON): Xử lý vector         |
-                | • REGISTER RENAMING: Tránh xung đột     |
-                +-----------------------------------------+
-```
-
-```
-+-------------------------------------------------------------+
-|               ISA - Instruction Set Architecture            |
-|   (Giao diện giữa phần mềm và phần cứng)                    |
-+-------------------------------------------------------------+
-
-+----------------+     +---------------------+     +-------------+
-|                |     |                     |     |             |
-|  Assembly Code | --> |   Machine Code      | --> |  Microcode  |
-|  (ADD R1,R2,R3)|     |  (32-bit: 0x00234020)|    |  (Optional) |
-|                |     |                     |     |             |
-+----------------+     +----------+----------+     +-------------+
-                                  |
-                                  v
-           +--------------------------------------------------+
-           |               CPU EXECUTION FLOW                 |
-           +--------------------------------------------------+
-           | 1. FETCH: Lấy lệnh từ Memory → IR                |
-           |    [PC] → Address Bus → Memory → Data Bus → IR   |
-           |                                                  |
-           | 2. DECODE: Giải mã lệnh → xác định:              |
-           |    - Loại lệnh (R-type, I-type, J-type)          |
-           |    - Thanh ghi nguồn (Rs, Rt), đích (Rd)         |
-           |    - Opcode & Function field                     |
-           |                                                  |
-           | 3. EXECUTE: ALU thực hiện phép toán              |
-           |    Ví dụ: R1 = R2 + R3                           |
-           |                                                  |
-           | 4. MEMORY ACCESS (nếu cần):                      |
-           |    - LOAD: Đọc dữ liệu từ RAM                    |
-           |    - STORE: Ghi dữ liệu vào RAM                  |
-           |                                                  |
-           | 5. WRITE BACK: Ghi kết quả vào thanh ghi (Rd)    |
-           +--------------------------------------------------+
-
-+-----------------------------------------------------------------------+
-|                        ISA COMPONENTS                                 |
-+----------------------------+----------------------+---------------------+
-|   R-TYPE (Register)        |   I-TYPE (Immediate) |   J-TYPE (Jump)     |
-| Opcode | Rs | Rt | Rd |Sh|F| Opcode | Rs | Rt | Addr | Opcode | Target |
-| 6b     | 5b | 5b | 5b |5b|6b| 6b     | 5b | 5b | 16b  | 6b     | 26b   |
-+----------------------------+----------------------+---------------------+
-| EX: ADD R1,R2,R3           | EX: LW R1,4(R2)      | EX: J loop         |
-| (Tính toán giữa thanh ghi) | (Tải từ bộ nhớ)      | (Nhảy đến nhãn)    |
-+----------------------------+----------------------+---------------------+
-
-+------------------------+     +-------------------------+
-| Supported Data Types   |     | Addressing Modes        |
-| - Byte (8-bit)         |     | - Immediate: #5         |
-| - Halfword (16-bit)    |     | - Register: R1          |
-| - Word (32-bit)        |     | - Base + Offset: 4(R2)  |
-| - Single/Double Float  |     | - PC-relative: loop     |
-+------------------------+     +-------------------------+
-
-+-------------------------------------------------------------+
-| Key Features of ISA                                         |
-| - Tập lệnh (ADD, SUB, LW, SW, BEQ, J, ...)                  |
-| - Số lượng thanh ghi (R0–R31)                               |
-| - Định dạng lệnh (3 loại chính)                            |
-| - Cách định địa chỉ (addressing modes)                      |
-| - Hỗ trợ ngắt (interrupts) và ngoại lệ (exceptions)         |
-| - Giao diện ABI (Application Binary Interface)              |
-+-------------------------------------------------------------+
-```
-
-
-
-## 1. COMPUTER ARCHITECTURE  
-### 1.1. Digital Logic 
-- Boolean Algebra
-  - AND, OR, NOT, XOR
-  - NAND, NOR (universal gates)
-  - Truth tables
-  - Boolean expressions
-  - De Morgan's Laws
-- Logic Gates
-  - Transistor as switch
-  - CMOS technology
-  - Gate delay, fan-out
-- Combinational Circuits
-  - Multiplexer (MUX)
-  - Demultiplexer (DEMUX)
-  - Decoder
-  - Encoder
-  - Adder (Half Adder, Full Adder)
-  - Arithmetic Logic Unit (ALU) – basic design
-- Sequential Circuits
-  - Latch (SR Latch)
-  - Flip-Flop (D Flip-Flop, JK Flip-Flop)
-  - Clock signal
-  - Synchronous vs Asynchronous circuits
-  - Register
-  - Shift Register
-  - Counter (Binary Counter, Ring Counter)
-
-### 1.2. Processor Design (Thiết kế bộ xử lý)
-- Central Processing Unit (CPU)
-  - Control Unit (CU)
-  - Arithmetic Logic Unit (ALU)
-  - Registers (General-purpose, PC, IR, ACC, SP)
-- Datapath
-  - Instruction fetch, decode, execute
-  - Bus system (data bus, address bus, control bus)
-- Instruction Set Architecture (ISA)
-  - RISC vs CISC
-  - x86, ARM, RISC-V
-  - Instruction formats (opcode, operands)
-  - Addressing modes (immediate, direct, indirect, indexed)
-  - Assembly language
-    - Mnemonics
-    - Labels, directives
-    - Assembler (two-pass)
-- Control Unit Design
-  - Hardwired control
-  - Microprogrammed control
-  - Microcode
-
-### 1.3. Memory Hierarchy
-- Memory types
-  - Volatile vs Non-volatile
-  - RAM (DRAM, SRAM)
-  - ROM (PROM, EPROM, EEPROM, Flash)
-- Memory Organization
-  - Address space
-  - Byte addressing
-  - Endianness (Little-endian, Big-endian)
-  - Memory-mapped I/O
-- Cache Memory
-  - Cache hit / miss
-  - Hit rate, miss penalty
-  - Cache mapping (Direct-mapped, Fully associative, Set-associative)
-  - Replacement policies (LRU, FIFO, Random)
-  - Write policies (Write-through, Write-back)
-  - Cache coherence (in multi-core)
-- Virtual Memory
-  - Page, Frame
-  - Page table
-  - TLB (Translation Lookaside Buffer)
-  - Paging, segmentation
-  - Page fault
-  - Demand paging
-  - Working set model
-
-### 1.4. Storage Systems
-- Secondary storage
-  - Hard Disk Drive (HDD)
-    - Platter, track, sector
-    - Seek time, rotational latency, transfer time
-  - Solid State Drive (SSD)
-    - NAND flash
-    - Wear leveling
-    - TRIM command
-- Tertiary storage
-  - Magnetic tape
-  - Optical storage (CD, DVD, Blu-ray)
-
-### 1.5. Input/Output (I/O) Systems
-- I/O interfaces
-  - Programmed I/O
-  - Interrupt-driven I/O
-  - Direct Memory Access (DMA)
-- I/O controllers
-- Buses
-  - System bus
-  - Expansion buses (PCI, PCIe, USB)
-- Interrupts
-  - Interrupt vector table
-  - Interrupt service routine (ISR)
-  - Maskable vs Non-maskable interrupts
-
-### 1.6. Performance & Parallelism
-- CPU Performance
-  - Clock cycle, clock rate
-  - CPI (Cycles Per Instruction)
-  - MIPS, FLOPS
-  - Amdahl's Law
-- Pipelining
-  - Pipeline stages (IF, ID, EX, MEM, WB)
-  - Pipeline hazards
-    - Structural hazard
-    - Data hazard (forwarding, stalling)
-    - Control hazard (branch prediction)
-- Parallel Architectures
-  - Multi-core processors
-  - SIMD (Single Instruction, Multiple Data)
-  - Superscalar, Out-of-order execution
-  - SISD, SIMD, MISD, MIMD (Flynn's Taxonomy)
-
 ---
 
-:::note Computer Architecture
-Computer architecture is a crucial concept in computer science. It involves designing and organizing computer systems at
-the hardware level, encompassing the structure and functionality of computer components and how they interact to execute
-instructions and perform tasks.
 
-At its core, computer architecture defines the blueprint of a computer system, specifying the relationships between its
-various components.
 
-- **CPU**: executes instructions stored in memory.  
-- **Memory hierarchy**: registers, cache, RAM, secondary storage.  
-- **Input/Output systems**: manage interactions with external devices.  
-- **Interconnection structures**: buses and networks for communication.  
+## Bản chất nó nằm ở chỗ nào ?
 
-The **Instruction Set Architecture (ISA)** serves as the interface between hardware and software, defining the set of
-instructions that a CPU can execute. Different ISAs affect software compatibility and system performance.
+- Cái đầu tiên cần giải quyết là cầu nối ***hardware*** và ***software*** ?
 
-Modern architectures improve processing via:  
-- **Parallelism**: executing multiple instructions simultaneously.  
-- **Pipelining**: dividing execution into stages for concurrency.  
-
-Evolution has moved from single-core to multi-core processors, boosting performance through parallelism. Advances in
-**RISC** and **CISC** have shaped CPU design strategies.
-
-As a foundational aspect of computer science, computer architecture determines how hardware components collaborate to
-execute instructions and deliver computing capabilities.
-:::
-
-## Formulas
-
-1. **CPU Time**  
-
-   $$
-   \text{CPU time} = \text{Instruction count} \times \text{CPI} \times \text{Clock cycle time}
-   $$
-
-2. **Relative Performance**  
-
-   $$
-   X \text{ is } n \text{ times faster than } Y:\quad 
-   n = \frac{\text{Execution time}_Y}{\text{Execution time}_X} 
-     = \frac{\text{Performance}_X}{\text{Performance}_Y}
-   $$
-
-3. **Amdahl's Law**  
-
-   $$
-   \text{Speedup}_{overall} = 
-   \frac{\text{Execution time}_{old}}{\text{Execution time}_{new}} 
-   = \frac{1}{\left(1 - \text{Fraction}_{enhanced}\right) + \frac{\text{Fraction}_{enhanced}}{\text{Speedup}_{enhanced}}}
-   $$
-
-4. **Dynamic Energy**  
-
-   $$
-   \text{Energy}_{dynamic} \propto \tfrac{1}{2} \times \text{Capacitive load} \times \text{Voltage}^2
-   $$
-
-5. **Dynamic Power**  
-
-   $$
-   \text{Power}_{dynamic} \propto \tfrac{1}{2} \times \text{Capacitive load} \times \text{Voltage}^2 \times \text{Frequency}
-   $$
-
-6. **Static Power**  
-
-   $$
-   \text{Power}_{static} \propto \text{Current}_{static} \times \text{Voltage}
-   $$
-
-7. **Availability**  
-
-   $$
-   \text{Availability} = \frac{\text{MTTF}}{\text{MTTF} + \text{MTTR}}
-   $$
-
-8. **Die Yield**  
-
-   $$
-   \text{Die yield} = \text{Wafer yield} \times \frac{1}{\left(1 + \text{Defects per unit area} \times \text{Die area}\right)^N}
-   $$
-
-   where Wafer yield accounts for wafers too bad to test,  
-   and $N$ is the process-complexity factor (≈ 11.5–15.5 for 40nm in 2010).
-
-9. **Means** — Arithmetic (AM), Weighted Arithmetic (WAM), Geometric (GM):  
-
-   $$
-   \text{AM} = \frac{1}{n} \sum_{i=1}^{n} \text{Time}_i
-   $$
-
-   $$
-   \text{WAM} = \frac{1}{n} \sum_{i=1}^{n} \text{Weight}_i \times \text{Time}_i
-   $$
-
-   $$
-   \text{GM} = \sqrt[n]{\prod_{i=1}^{n} \text{Time}_i}
-   $$
-
-   where $\text{Time}_i$ is execution time of program $i$,  
-   $\text{Weight}_i$ is the weighting of program $i$.
-
-10. **Average Memory-Access Time**  
-
-    $$
-    \text{AMAT} = \text{Hit time} + \text{Miss rate} \times \text{Miss penalty}
-    $$
-
-11. **Misses per Instruction**  
-
-    $$
-    \text{Misses per instruction} = \text{Miss rate} \times \text{Memory accesses per instruction}
-    $$
-
-12. **Cache Index Size**  
-
-    $$
-    2^{\text{index}} = \frac{\text{Cache size}}{\text{Block size} \times \text{Set associativity}}
-    $$
-
-13. **Power Utilization Effectiveness (PUE)**  
-
-    $$
-    \text{PUE} = \frac{\text{Total Facility Power}}{\text{IT Equipment Power}}
-    $$
+🔥  "Chỉ có dữ liệu trong bộ nhớ  -> CPU vật lý xử lí -> Cập nhật lại vào bộ nhớ"
+🔥 
 
 ---
+### Không có "OS", chỉ có kernel là chương trình đặc biệt
 
-## Rules of Thumb
+🔹 OS không "tồn tại" như thực thể siêu nhiên:
+   - Kernel là một file nhị phân trên ổ cứng
+   - Được bootloader nạp vào RAM khi ***khởi động*** 
+   - CPU bắt đầu thực thi từ entry point của kernel
 
-### Amdahl/Case Rule
-> A balanced computer system needs about **1 MB of main memory capacity**  
-> and **1 megabit/s of I/O bandwidth** per **MIPS** of CPU performance.
+🔹 Kernel chạy ở **kernel mode (Ring 0)**:
+   - Toàn quyền: truy cập phần cứng, quản lý bộ nhớ, ngắt
+   - Nhưng vẫn là: chuỗi lệnh máy → được CPU thực thi
 
-### 90/10 Locality Rule
-> A program executes about **90% of its instructions** in **10% of its code**.
+👉 Bản chất:
+   "OS không phải là 'người điều khiển' – mà là một chương trình đặc biệt 
+    được nạp sớm và chạy ở chế độ đặc quyền."
 
-### Bandwidth Rule
-> Bandwidth grows by at least the square of the improvement in latency.
 
-### 2:1 Cache Rule
-> The miss rate of a direct-mapped cache of size $N$  
-> is about the same as a two-way set-associative cache of size $\tfrac{N}{2}$.
+### Không có APP , chỉ có chuỗi lệnh bin được OS nạp vào RAM 
 
-### Dependability Rule
-> Design with **no single point of failure**.
+
+🔹 Khi mở file nhị phân (.exe, ELF):
+   - OS nạp một phần hoặc toàn bộ vào RAM (dùng demand paging)
+   - Tạo tiến trình: không gian bộ nhớ ảo, stack, heap, thanh ghi, danh sách tài nguyên (file, network, v.v.)
+   - Giao PC cho lệnh đầu tiên của app
+
+🔹 CPU thực thi:
+   - **Đọc lệnh từ ***RAM*** → giải mã → thực thi** ⚠️⚠️ĐÂY LÀ ĐIỂM THEN CHỐT⚠️⚠️
+   - Không quan tâm đây là Chrome, Notepad hay game
+   - Chỉ biết: "lệnh này là MOV, ADD, JMP..."
+
+👉 Bản chất: 
+   "Không có app nào hết – chỉ có một chuỗi lệnh máy nhị phân của app đc OS nạp vào RAM đang được CPU thực thi."
+
+
+
+### Mối liên kết CPU , RAM , dữ liệu ❓
+
+🔥 CPU không biết: Đây là ứng dụng gì ?
+
+
+💡 CPU chỉ biết: 
+Đọc byte tại địa chỉ do Program Counter (PC) trỏ đến
+Giải mã byte đó theo ISA (x86, ARM, RISC-V…)
+Thực thi → cập nhật PC → lặp lại
+
+👉 Như vậy: CPU không phân biệt "OS" hay "app" – nó chỉ đọc và thực thi lệnh từ RAM. 
+
+
+- Bản chất là CPU đang thực thi một chuỗi các lệnh máy (machine instructions). 
+- Mỗi lệnh là một số nhị phân (ví dụ: 0xB8 0x01 0x00 0x00 0x00 – lệnh MOV trên x86).
+- CPU đọc lệnh từ RAM (từ vùng text của tiến trình), giải mã (decode), rồi thực thi.
+- CPU không "biết" đó là ứng dụng gì (Chrome, Word, v.v.) – nó chỉ biết đọc và thực thi lệnh.
+- 👉 Như vậy: "Ứng dụng" không tồn tại ở cấp độ phần cứng.
+    - Điều tồn tại là một chuỗi lệnh máy đang được CPU thực thi trong bối cảnh của một tiến trình do OS quản lý. 
+
+-> ✅ CPU không biết nó đang chạy Chrome hay Notepad – nó chỉ biết thực thi lệnh.
+
+
+
+✅ CPU là một cỗ máy trạng thái ***-> CPU "ngu ngốc" nhưng trung thành***:
+   - Không "hiểu" gì cả.
+      - Đây là hệ điều hành hay ứng dụng người dùng ?
+      - Đây là dữ liệu hay lệnh ?
+      - Đây là "thế giới ảo" hay "thế giới thực" ?
+
+
+   - Chỉ biết: 
+        1. Đọc byte tại địa chỉ do PC (Program Counter) trỏ đến
+        2. Giải mã theo ISA (x86, ARM, RISC-V)
+        3. Thực thi → cập nhật PC → lặp lại
+
+✅ RAM là nơi lưu:
+   - Lệnh (machine code)
+   - Dữ liệu (biến, chuỗi, cấu trúc)
+   → Nhưng CPU không phân biệt: "đây là lệnh hay dữ liệu"
+
+✅ Transistor là bản chất cuối cùng:
+   - Dữ liệu = điện áp (0V = 0, 5V = 1)
+   - Lệnh = chuỗi bit → điều khiển các cổng logic (AND, OR, NOT)
+   - ALU, thanh ghi, bus = mạng lưới transistor được điều khiển
+
+👉 Tóm lại: 
+   "Mọi thứ đều là dữ liệu được CPU thực thi – 
+    OS, app, driver, file, màn hình... chỉ là tên do con người đặt."
+
+
+
+
+
+"Sau khi CPU thực thi 1 lệnh thông thường thì nó sẽ cập nhật lại giá trị vào thanh ghi hoặc RAM. Logic lúc này là OS sẽ thêm lệnh để hiển thị nó lên màn hình, làm chúng ta ảo giác phần cứng và phần mềm – chứ thực ra chỉ là data được xử lý qua CPU thực và lưu trong RAM thôi." 
+
+🔍 Bản chất: Chỉ có dữ liệu và CPU thực thi
+✅ Không có "phần mềm", "phần cứng", "OS", "app" nào tồn tại ở cấp độ vật lý. 
+
+Có chỉ là:
+
+CPU vật lý đang chạy vòng lặp fetch → decode → execute
+RAM chứa các byte: có thể là lệnh, có thể là dữ liệu
+Transistor đóng/mở theo tín hiệu điều khiển
+Dữ liệu di chuyển dưới dạng điện áp
+👉 Tất cả những khái niệm như "ứng dụng", "hệ điều hành", "màn hình", "file"… là do con người đặt tên để quản lý và hiểu hệ thống.
+
+
+***❓ "CPU chạy app, OS, thì rốt cuộc ai thực thi? Có thật sự có 'phần mềm' không?"***
+
+→ Sau hành trình phân tích, ta đi đến một chân lý đơn giản:
+
+🔥 "Không có phần mềm. Không có phần cứng. 
+     Chỉ có dữ liệu của mem, storage  và CPU thực thi lệnh nhị phân  – mọi thứ còn lại là trừu tượng."
+
+
+### Phân biệt Ring 0 (Kernel Mode) và Ring 3 (User Mode)
+1. Tất cả các lệnh đều chạy trên CPU, nhưng không phải lệnh nào cũng chạy trực tiếp như nhau. 
+
+   🔹 Lệnh của ứng dụng: chạy trên CPU, ở user mode. Ứng dụng không thể tự do gọi phần cứng → phải qua OS (thông qua system call).
+   
+   🔹 Lệnh của OS: chạy trên CPU, ở kernel mode – khi được ứng dụng "kêu gọi" hoặc do ngắt (interrupt).
+👉 Tức là: cả hai đều là lệnh chạy trên CPU, nhưng qua hai "cổng" khác nhau về quyền hạn.
+
+Vậy tức là chuỗi lệnh trong app mà CPU đang thực thi nếu cần truy vấn đến hệ điều hành thì gọi là system call, tức là CPU phải từ ring 3 trỏ đến chuỗi lệnh của OS; còn nếu đơn giản CPU có thể thực thi luôn thì nó là lệnh thông thường." 
+
+
+| Đặc điểm          | User Mode (Ring 3)        | Kernel Mode (Ring 0)         |
+|-------------------|----------------------------|-------------------------------|
+| Quyền hạn         | Hạn chế                    | Toàn quyền                    |
+| Chạy bởi          | Ứng dụng (Chrome, Word...) | Hệ điều hành (kernel)         |
+| Truy cập phần cứng| ❌ Không được               | ✅ Được                        |
+| Vị trí trong RAM  | User space                 | Kernel space                  |
+| Cách chuyển đổi   | Qua system call            | Qua interrupt / system call   |
+
+🔹 Vòng đời một system call:
+   App (Ring 3) → gọi `syscall` → CPU chuyển sang Ring 0 → kernel thực thi → trả kết quả → trở về Ring 3
+
+👉 Bản chất:
+   "Phân biệt mode không phải để phân chia 'thế giới', 
+    mà để bảo vệ hệ thống: ngăn app độc hại làm sập máy."
+
+
+### System call cửa thoát từ User Mode sang Kernel Mode
+
+
+🔹 Khi app cần tài nguyên hệ thống (file, mạng, màn hình):
+   - Không thể tự làm (bị giới hạn ở Ring 3)
+   - Phải gọi OS qua **system call**
+
+🔹 CPU xử lý:
+   - Nhận lệnh `syscall` → chuyển sang kernel mode
+   - Kernel kiểm tra:
+        - Tham số có hợp lệ?
+        - Tiến trình có quyền không?
+   - Nếu hợp lệ: thực hiện hành động
+   - Nếu không: trả về lỗi (errno), không làm gì cả
+
+👉 Bản chất:
+   "System call không phải là 'hàm', mà là yêu cầu dịch vụ.
+    Kernel không 'huỷ lệnh' – mà từ chối phục vụ nếu không an toàn."
+

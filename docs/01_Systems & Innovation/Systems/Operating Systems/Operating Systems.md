@@ -341,3 +341,7 @@ Driver phần cứng
 Heap dành cho kernel (kmalloc, kmalloc)
 
 CPU -> MMU -> OS 
+System call mechanism (cách syscall hoạt động)
+Interrupt và Exception handling
+Context switch (chuyển đổi giữa tiến trình)
+Virtual memory và cách OS bảo vệ bộ nhớ
