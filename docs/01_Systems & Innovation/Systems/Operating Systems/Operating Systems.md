@@ -330,3 +330,14 @@ States  Scheduling   Paging   Virtual Mem   TLB     File Sys  Disk     RAID
 
 ### Principle of Least Privilege
 > Processes should run with minimal necessary permissions.
+
+
+- Nạp dữ liệu vào Ram -> OS phân user space và kernel space
+Mã của kernel (code) ntoskrnl.exe(Windows),vmlinuz(Linux)
+Dữ liệu kernel (biến toàn cục, cấu trúc)
+Bộ đệm hệ thống (input buffer, network buffer)
+Page tables, stack của kernel
+Driver phần cứng
+Heap dành cho kernel (kmalloc, kmalloc)
+
+CPU -> MMU -> OS 

@@ -352,52 +352,6 @@ execute instructions and deliver computing capabilities.
 :::
 
 ## Formulas
-```
-                        COMPUTER ARCHITECTURE
-                                 |
-        ---------------------------------------------------------
-        |                        |                              |
-    CPU (Central          MEMORY HIERARCHY               INPUT/OUTPUT (I/O)
-   Processing Unit)            |                              |
-        |              -------------------          ---------------------
-        |              |        |        |          |         |         |
-     --------     Cache (L1,L2,L3)  Main Memory    Keyboard   Display   Storage
-     |      |           |               |           Mouse     Printer   (HDD, SSD)
-  Control  ALU        TLB            ROM / RAM     Network   Sensors   Flash
-   Unit   (Arithmetic               (DRAM, SRAM)    Devices   Actuators
-          & Logic)                     |
-             |                        |
-             |                   Virtual Memory
-             |                   (Paging, Segmentation)
-             |
-         REGISTERS
-         (PC, IR, ACC, SP)
-             |
-        ----------------
-        |      |       |
-     Clock   Pipelining  CISC vs RISC
-     Speed   (Fetch,     (Complex vs
-     (GHz)    Decode,     Reduced Set)
-             Execute,
-             Memory,
-             Writeback)
-                 |
-             PARALLELISM
-                 |
-        ---------------------
-        |         |         |
-   Multi-core  SIMD (e.g., GPU)  Superscalar
-   Processors   (Vector ops)     (Multiple pipes)
-                 |
-             CACHE & PERFORMANCE
-                 |
-        ---------------------
-        |         |         |
-   Cache Hit   Cache Miss   Locality
-   (Fast)      (Slow: Stall) (Temporal, Spatial)
-```
-
-
 
 1. **CPU Time**  
 
