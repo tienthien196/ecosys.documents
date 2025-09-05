@@ -1,4 +1,191 @@
+---
+title: Computer Graphics
+sidebar_position: 1
+---
 
+
+```
+==========================================================================================================
+             ĐỒ HỌA MÁY TÍNH TOÀN DIỆN – BẢN CHẤT TỪ 3D MODEL ĐẾN PIXEL TRÊN MÀN HÌNH
+==========================================================================================================
+
++---------------------------------------------------------------------------------------------------------+
+|                                         APPLICATION (User Code)                                         |
+|                                                                                                         |
+|   // Ví dụ: OpenGL / Vulkan / Unity / Unreal Engine                                                     |
+|   glVertex3f(0.0, 1.0, 0.0);  // Đỉnh tam giác                                                          |
+|   glColor3f(1.0, 0.0, 0.0);   // Màu đỏ                                                                  |
+|   drawMesh(model);            // Vẽ mô hình 3D                                                           |
+|                                                                                                         |
+|  ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐  |
+|  │        High-level API: OpenGL, DirectX, Vulkan, WebGL, Metal (Apple)                           │  |
+|  └─────────────────────────────────────────────────────────────────────────────────────────────────┘  |
+|                                                                                                         |
++---------------------------------------------------------------------------------------------------------+
+                                          |
+                                          | (Graphics API Call)
+                                          v
++---------------------------------------------------------------------------------------------------------+
+|                                      GRAPHICS DRIVER (Kernel/OS)                                        |
+|                                                                                                         |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|  |   OpenGL / Vulkan    |     |   System Call        |     |   GPU Driver                |           |
+|  |   Runtime Library    | --> |   (syscall)          | --> |   (NVIDIA, AMD, Intel)      |           |
+|  |   (User Space)       |     |                      |     |   (Kernel Module)           |           |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|                                                                                                         |
+|  ✅ Chuyển lệnh đồ họa từ ứng dụng → GPU                                                                 |
+|  ✅ Quản lý context, bộ nhớ, đồng bộ hóa                                                               |
++---------------------------------------------------------------------------------------------------------+
+                                          |
+                                          | (Command Buffer → GPU)
+                                          v
++---------------------------------------------------------------------------------------------------------+
+|                                           GPU PIPELINE (Hardware)                                       |
+|                                                                                                         |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|  |   VERTEX SHADER      |     |   TESSELLATION       |     |   GEOMETRY SHADER             |           |
+|  | - Xử lý từng đỉnh     | --> |   (Optional)         | --> |   (Optional)                  |           |
+|  | - Transform:          |     | - Chia nhỏ primitive |     | - Tạo/sửa geometry            |           |
+|  |   Model → World →     |     |   (patch, triangle)  |     |   (vd: tạo cỏ, tia lửa)       |
+|  |   View → Clip Space   |     |                      |     |                               |
+|  +----------+-----------+     +----------+-----------+     +---------------+---------------+           |
+|            |                            |                                 |                           |
+|            v                            v                                 v                           |
+|  +---------------------------------------------------------------------------------------------+      |
+|  |                                PRIMITIVE ASSEMBLY & CLIPPING                                |      |
+|  | - Gom đỉnh thành primitive (tam giác, line, point)                                          |      |
+|  | - Cắt (clip) nếu ngoài vùng nhìn (view frustum)                                             |      |
+|  +---------------------------------------------------------------------------------------------+      |
+|                                          |                                                            |
+|                                          v                                                            |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|  |   RASTERIZATION      | --> |   FRAGMENT SHADER    | --> |   TEXTURE SAMPLING            |           |
+|  | - Chuyển thành pixel  |     | - Xử lý từng pixel   |     | - Lấy màu từ texture          |           |
+|  |   (scan conversion)   |     |   (fragment)         |     | - Filtering: nearest, bilinear|           |
+|  | - Interpolate:        |     | - Tính màu cuối cùng |     |   trilinear, anisotropic      |           |
+|  |   position, color, UV |     |   (phong, normal map)|     |                               |           |
+|  +----------+-----------+     +----------+-----------+     +-------------------------------+           |
+|            |                            |                                 |                           |
+|            +----------------------------+---------------------------------+                           |
+|                                         |                                                            |
+|                                         v                                                            |
+|  +---------------------------------------------------------------------------------------------+      |
+|  |                                   PER-FRAGMENT OPERATIONS                                 |      |
+|  | - Depth Test (Z-Buffer): chỉ giữ pixel gần nhất                                            |      |
+|  | - Stencil Test: mask vùng vẽ (bóng, reflection)                                            |      |
+|  | - Blending: alpha transparency (giao nhau)                                                 |      |
+|  | - Dithering: giảm banding                                                                |      |
+|  +---------------------------------------------------------------------------------------------+      |
+|                                         |                                                            |
+|                                         v                                                            |
+|  +----------------------+                                                                      |
+|  |   FRAMEBUFFER        | <--------------------------------------------------------------------+
+|  | - Color Buffer       |                                                                      |
+|  | - Depth Buffer (Z)   |                                                                      |
+|  | - Stencil Buffer     |                                                                      |
+|  +----------------------+                                                                      |
++---------------------------------------------------------------------------------------------------------+
+                                          |
+                                          | (Swap Buffers – Double Buffering)
+                                          v
++---------------------------------------------------------------------------------------------------------+
+|                                          DISPLAY OUTPUT                                                 |
+|                                                                                                         |
+|  +---------------------+     +----------------------+     +-------------------------------+           |
+|  |   Back Buffer       | --> |   Front Buffer       | --> |   MONITOR (VGA, HDMI, DP)     |           |
+|  | (Rendering)         |     | (Displayed)          |     |                               |           |
+|  |                     |     |                      |     |  Refresh Rate: 60Hz, 144Hz... |           |
+|  | double/triple       |     | vsync → avoid tearing|     |  Pixel: RGB subpixel          |           |
+|  | buffering           |     |                      |     |                               |           |
+|  +---------------------+     +----------------------+     +-------------------------------+           |
+|                                                                                                         |
+|  ✅ V-Sync: đồng bộ với tần số quét màn hình để tránh xé hình (tearing)                                 |
++---------------------------------------------------------------------------------------------------------+
+
+                                                                 ^
+                                                                 | (Data Flow)
+                                                                 |
++------------------------------------------------------------------------------------------------------------------+
+|                                          3D DATA FLOW & MEMORY LAYOUT                                        |
+|                                                                                                                  |
+|  +----------------------+     +----------------------+     +-------------------------------+                   |
+|  |   CPU (Main Memory)  |     |   GPU Memory (VRAM)  |     |   Texture / Shader Storage    |                   |
+|  |                      | --> |                      | --> |                               |                   |
+|  | - Model: vertices,   | DMA | - Vertex Buffer      |     | - .dds, .ktx (texture)        |                   |
+|  |   normals, UVs       |     | - Index Buffer       |     | - .glsl, .hlsl (shader)       |                   |
+|  | - Animation data     |     | - Uniforms (MVP)     |     |                               |                   |
+|  |                      |     | - Framebuffer        |     |                               |                   |
+|  +----------------------+     +----------------------+     +-------------------------------+                   |
+|                                                                                                                  |
+|  ✅ DMA: GPU tự sao chép dữ liệu từ RAM → VRAM (không qua CPU)                                                   |
++------------------------------------------------------------------------------------------------------------------+
+
+                                                                 ^
+                                                                 | (Math & Transformation)
+                                                                 |
++------------------------------------------------------------------------------------------------------------------+
+|                                          3D MATHEMATICS & PIPELINE                                           |
+|                                                                                                                  |
+|  Model Space → World Space → View Space → Clip Space → NDC → Window Space                                        |
+|                                                                                                                  |
+|  [Model] → × Model Matrix → [World] → × View Matrix → [Camera] → × Projection → [Clip] → Perspective Divide → [NDC] → Viewport Transform → [Screen]  
+|                                                                                                                  |
+|  - MVP = Model × View × Projection (gửi vào shader qua Uniform)                                                   |
+|  - NDC: Normalized Device Coordinates (-1 → 1)                                                                   |
+|  - Viewport: ánh xạ NDC → pixel (0 → width, 0 → height)                                                          |
++------------------------------------------------------------------------------------------------------------------+
+
+                                                                 ^
+                                                                 | (Advanced Techniques)
+                                                                 |
++------------------------------------------------------------------------------------------------------------------+
+|                                          MODERN GRAPHICS TECHNIQUES                                            |
+|                                                                                                                  |
+|  +----------------------+     +----------------------+     +-------------------------------+                   |
+|  |   SHADING MODELS     |     |   GLOBAL ILLUMINATION|     |   POST-PROCESSING             |                   |
+|  | - Phong, Blinn-Phong  |     | - Ray Tracing        |     | - Bloom, DOF, SSAO, FXAA      |                   |
+|  | - PBR (Physically     |     | - Path Tracing       |     | - HDR, Tone Mapping           |                   |
+|  |   Based Rendering)    |     | - Ambient Occlusion  |     | - Motion Blur                 |                   |
+|  +----------------------+     +----------------------+     +-------------------------------+                   |
+|                                                                                                                  |
+|  +----------------------+     +----------------------+     +-------------------------------+                   |
+|  |   MESH PROCESSING    |     |   ANIMATION          |     |   COMPUTE SHADERS             |                   |
+|  | - LOD (Level of Detail|     | - Skinning,          |     | - GPGPU: physics, AI,         |                   |
+|  | - Instancing         |     |   keyframe,          |     |   image processing            |                   |
+|  | - Culling (frustum,  |     |   morph targets      |     |                               |                   |
+|  |   occlusion)         |     |                      |     |                               |                   |
+|  +----------------------+     +----------------------+     +-------------------------------+                   |
++------------------------------------------------------------------------------------------------------------------+
+
+                                                                 ^
+                                                                 | (Real-Time vs Offline)
+                                                                 |
++------------------------------------------------------------------------------------------------------------------+
+|                                          RENDERING PARADIGMS                                                   |
+|                                                                                                                  |
+|  +-----------------------------+                                 +------------------------------------+         |
+|  |   REAL-TIME RENDERING       |                                 |   OFFLINE RENDERING (Ray Tracing)  |         |
+|  | - Game Engine (Unity, UE)   |                                 | - Blender Cycles, Arnold, V-Ray    |         |
+|  | - 30–120 FPS                |                                 | - Không realtime (giờ → ngày)      |         |
+|  | - Rasterization-based       |                                 | - Tính chính xác ánh sáng, phản xạ |         |
+|  | - Tối ưu hiệu suất          |                                 | - Dùng trong phim, quảng cáo       |         |
+|  +-----------------------------+                                 +------------------------------------+         |
++------------------------------------------------------------------------------------------------------------------+
+```
+---
+
+GHI CHÚ:
+- **Vertex Shader**: Chạy trên mỗi đỉnh → chuyển đổi vị trí, truyền dữ liệu khác (màu, UV)
+- **Fragment Shader**: Còn gọi là Pixel Shader → tính màu cuối cùng của mỗi pixel
+- **Z-Buffer (Depth Buffer)**: Lưu độ sâu → đảm bảo vật gần che vật xa
+- **Double Buffering**: Vẽ ở back buffer → swap khi xong → tránh nhấp nháy
+- **V-Sync**: Đồng bộ với tần số màn hình → tránh tearing
+- **PBR**: Dùng albedo, roughness, metalness map → vật liệu thực tế
+- **Compute Shader**: Không để vẽ, mà để tính toán (physics, AI, post-process)
+- **Ray Tracing**: Tính ánh sáng chính xác hơn → nhưng chậm → cần RTX, Vulkan RT
+- **APIs**: OpenGL (cross-platform), DirectX (Windows), Vulkan/Metal (hiệu suất cao)
+- **GPU VRAM**: Bộ nhớ siêu nhanh, riêng cho đồ họa → càng nhiều → texture càng lớn
 
 
 
@@ -175,6 +362,7 @@ Computer graphics bridges art and science, enabling everything from UI design to
 :::
 
 ## Formulas
+```
 
                         COMPUTER GRAPHICS
                                  |
@@ -201,7 +389,7 @@ Matrix   Matrix     Matrix
    |         |         |
 Perspective  Ortho   Frustum
 Projection  Project   Culling
-
+```
 1. **MVP Transformation**  
    $$
    \vec{v}_{clip} = \mathbf{P} \times \mathbf{V} \times \mathbf{M} \times \vec{v}_{model}

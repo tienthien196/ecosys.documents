@@ -1,41 +1,167 @@
+---
+title: Operating Systems
+sidebar_position: 1
+---
+
+
 ```
-                             OPERATING SYSTEM (OS)
-                                      |
-        ---------------------------------------------------------------------------------
-        |                |                  |                   |                     |
-    PROCESS        MEMORY MANAGEMENT    FILE SYSTEM        I/O & DEVICE        SECURITY & PROTECTION
-   MANAGEMENT             |                   |               MANAGEMENT               |
-        |                |                   |                   |                     |
-    -----------    ----------------    ----------------    ----------------    -------------------
-    |    |    |    |       |       |    |       |       |    |       |       |    |       |       |
-  Process  Thread  Scheduling     Paging    Segmentation   FAT, NTFS, ext4   Device Drivers  Buffering  Authentication  Access Control  Encryption
-  States   (Multithreading)     (Page Table, TLB)  (Logical → Physical)   (Directory, Inode)   (Kernel I/O)  Caching        (Password, Biometric) (ACL, Roles)   (AES, RSA)
-  (New,     |          |             |           |             |             |          |          |                     |
-  Ready,    |    FCFS, SJF,        Virtual      Page Fault    File Ops      Interrupts  DMA      Firewall     Privilege Rings
-  Running,  |    Round Robin,     Memory       Demand Paging   (open, read)   (Polling vs) (Direct Memory Access)   (User vs Kernel Mode)
-  Blocked)  |    Priority)        (Swap Space)  (Lazy Loading)                Interrupt-Driven)
-            |         |                |           |             |                   |
-            |    Multilevel           |        Thrashing       |                   |
-            |    Feedback Queue       |    (Fix: Increase RAM)  |                   |
-            |                         |                        Hard Links vs Soft Links
-            |                         |                        (Same inode vs Path-based)
-            |
-        SYNCHRONIZATION
-            |
-    ---------------------
-    |         |         |
-  Mutex    Semaphore   Monitor
-  (Lock)   (Counting,  (High-level
-           Binary)     construct)
-            |
-        DEADLOCK
-            |
-    ---------------------
-    |         |         |
-  Mutual   Hold &    No Preemption   Circular Wait
-  Exclusion  Wait      (Can't force stop)   (A→B→C→A)
-            |
-     Prevention / Avoidance / Detection / Recovery
+==========================================================================================================
+                  HỆ ĐIỀU HÀNH TOÀN DIỆN – BẢN CHẤT TỪ KERNEL ĐẾN ỨNG DỤNG
+==========================================================================================================
+
++-----------------------------------------------------------------------------------------+
+|                                 USER SPACE (Ring 3)                                     |
+|                                                                                         |
+|  +---------------------+     +---------------------+     +---------------------+      |
+|  |     Application     |     |     Application     |     |     Application     |      |
+|  |       (Chrome)      |     |      (Terminal)     |     |       (Game)        |      |
+|  |                     |     |                     |     |                     |      |
+|  |  syscall(open) ---> | --> |  syscall(read) ---> | --> |  syscall(send) ---> | -->  |
+|  |                     |     |                     |     |                     |      |
+|  +----------+----------+     +----------+----------+     +----------+----------+      |
+|             |                           |                           |                 |
+|             v                           v                           v                 |
++-------------+---------------------------+---------------------------+-----------------+
+              |                           |                           |
+              | (System Call Trap)        | (System Call Trap)        | (System Call Trap)
+              v                           v                           v
++-------------+---------------------------+---------------------------+-----------------+
+|                                 KERNEL SPACE (Ring 0)                                 |
+|                                                                                         |
+|  +---------------------------------------------------------------------------------+  |
+|  |                               SYSTEM CALL INTERFACE                             |  |
+|  | - Chuyển từ user mode → kernel mode                                             |  |
+|  | - Xử lý: open, read, write, fork, exec, socket, ...                             |  |
+|  +----------------------------------------+----------------------------------------+  |
+|                                           | (Dispatch)                                |
+|                                           v                                           |
+|  +----------------------+     +-----------------------+     +-------------------+    |
+|  |  PROCESS MANAGEMENT  |     |   MEMORY MANAGEMENT   |     |  FILE MANAGEMENT  |    |
+|  |                      |     |                       |     |                   |    |
+|  |  +----------------+  |     |  +------------------+ |     |  +-------------+  |    |
+|  |  | PCB Table      |  |     |  | Page Tables      | |     |  | VFS Layer   |  |    |
+|  |  | - PID, state   |  |     |  | - Virtual → Phys | |     |  | - ext4, NTFS|  |    |
+|  |  | - registers    |<--------+  | - TLB Cache      | |     |  | - FAT32     |  |    |
+|  |  | - stack ptr    |  |     |  +--------+---------+ |     |  +------+------|    |
+|  |  +--------+-------+  |     |           |           |     |         |           |
+|  |           |          |     |           v           |     |         v           |
+|  |  +--------v-------+  |     |  +------------------+ |     |  +-------------+    |
+|  |  | Scheduler      |  |     |  | Page Fault       | |     |  | Inode Table |    |
+|  |  | - Ready Queue  |  |     |  | Handler          | |     |  | - metadata  |    |
+|  |  | - Context      |  |     |  | - Swap In/Out    | |     |  +-------------+    |
+|  |  |   Switch       |  |     |  +------------------+ |     |                   |    |
+|  |  +----------------+  |     +-----------------------+     +-------------------+    |
+|  +----------------------+                                       ^         ^           |
+|             |                                                   |         |           |
+|             | (Timer IRQ)                                       |         | (File I/O)  |
+|             v                                                   |         |           |
+|  +----------------------+     +-----------------------+        +---------+-----------+
+|  | INTERRUPT HANDLER     |<-- |    DEVICE DRIVERS     | <-----------------------------+
+|  | - Timer: schedule     |    |                       |
+|  | - Keyboard: input     |    |  +------------------+ |
+|  | - Disk: I/O complete  |    |  | Disk Driver      | |
+|  | - Network: packet in  |    |  | - SATA/AHCI      | |
+|  |                       |    |  | - NVMe           | |
+|  +-----------+-----------+    |  +--------+---------+ |
+|             |                |           |           |
+|             | (Wake up task) |           v           |
+|             +--------------->|    I/O SCHEDULING     |
+|                              |    - CFQ, Deadline,   |
+|                              |      Kyber (Linux)    |
+|                              +-----------------------+
+|                                                                                         |
+|  +---------------------------------------------------------------------------------+  |
+|  |                          VIRTUAL MEMORY & PHYSICAL MAPPING                      |  |
+|  |                                                                                   |  |
+|  |  +----------------+    +----------------+    +----------------+                   |  |
+|  |  |   User Process |    |   Page Table   |    |     RAM        |                   |  |
+|  |  |   (Virtual)    |    |   (Kernel)     |    |   (Physical)   |                   |  |
+|  |  |                |    |                |    |                |                   |  |
+|  |  | 0x400000: Code +--->| 400000 → 1A000 +--->| 1A000: Frame   |                   |  |
+|  |  | 0x600000: Heap +--->| 600000 → 2C000 +--->| 2C000: Frame   |                   |  |
+|  |  | 0x7FFFFF: Stack+--->| 7FFFFF → 3E000 +--->| 3E000: Frame   |                   |  |
+|  |  +----------------+    +----------------+    +----------------+                   |  |
+|  |                                                                                   |  |
+|  |  +----------------+    +----------------+                                         |  |
+|  |  |   Swap Space   |<---+ Page Fault     | (Khi RAM đầy → đưa page ra disk)       |  |
+|  |  | (HDD/SSD)      |    | Handler        |                                         |  |
+|  |  +----------------+    +----------------+                                         |  |
+|  +---------------------------------------------------------------------------------+  |
+|                                                                                         |
++-----------------------------------------------------------------------------------------+
+                                                                 |
+                                                                 | (Physical Memory Bus)
+                                                                 v
++--------------------------------------------------------------------------------------------+
+|                                       MAIN MEMORY (RAM)                                    |
+| +--------------------------------------------------------------------------------------+ |
+| |           User Space (Process A)           |           User Space (Process B)        | |
+| | +----------------+  +----------------+     | +----------------+  +----------------+ | |
+| | | Code (Text)    |  | Heap           |     | | Code           |  | Heap           | | |
+| | | 0x400000       |  | 0x600000       |     | | 0x400000       |  | 0x600000       | | |
+| | +----------------+  +--------+-------+     | +----------------+  +--------+-------+ | |
+| | | Stack          |           |             | | Stack          |           |       | |
+| | | 0x7FFFFF       |<----------+ (grows down)| | 0x7FFFFF       |<----------+       | |
+| | +----------------+                         | +----------------+                   | |
+| |                                          | |                                      | |
+| | Kernel Space (Shared, protected)         | |                                      | |
+| | +--------------------------------------+ | |                                      | |
+| | | Page Tables, PCBs, Drivers, Buffers  | | |                                      | |
+| | | Network buffers, file caches, etc.   | | |                                      | |
+| | +--------------------------------------+ | |                                      | |
+| +--------------------------------------------------------------------------------------+ |
++--------------------------------------------------------------------------------------------+
+
+                                                                 ^
+                                                                 | (I/O via DMA or Bus)
+                                                                 |
++--------------------------------------------------------------------------------------------+
+|                                       I/O DEVICES                                          |
+|                                                                                         |
+|  +---------------------+     +---------------------+     +---------------------+      |
+|  |     Storage (SSD)     |<--->|     SATA/NVMe       |<--->|       CPU           |      |
+|  | - Read/Write sectors  | DMA | Controller / Driver |     | (via system calls)  |      |
+|  +----------+------------+     +----------+----------+     +----------+----------+      |
+|             |                           |                           |                 |
+|  +----------v------------+     +--------v-----------+     +---------v-----------+     |
+|  |       Network         |<--->|     Network        |<--->|       Kernel        |     |
+|  | (Ethernet/Wi-Fi)      | IRQ | Stack (TCP/IP)     |     | (socket, firewall)  |     |
+|  | - Packets in/out      |     | - Port handling    |     |                     |     |
+|  +-----------------------+     +--------------------+     +---------------------+     |
+|                                                                                         |
+|  +---------------------+     +---------------------+                                   |
+|  |     Keyboard        |<--->|     USB Driver      |<--->|     Input Subsystem   |     |
+|  | (Scan codes)        | IRQ | (HID, interrupt)    |     | (event queue)         |     |
+|  +---------------------+     +---------------------+     +---------------------+     |
++--------------------------------------------------------------------------------------------+
+
+                                                                 ^
+                                                                 | (Boot Process)
+                                                                 |
++--------------------------------------------------------------------------------------------+
+|                                  FIRMWARE & BOOT                                         |
+|                                                                                         |
+|  +---------------------+     +-----------------------------+                           |
+|  |     BIOS / UEFI     | --> |       Bootloader            | --> Loads OS Kernel       |
+|  | (Firmware)          |     | (GRUB, Windows Bootmgr)     |                           |
+|  +---------------------+     +-----------------------------+                           |
+|                                                                                         |
+|  Kernel: vmlinuz (Linux), ntoskrnl.exe (Windows)                                        |
+|  → Khởi tạo driver, page tables, scheduler, mount root file system                      |
+|  → Chuyển sang user space: chạy init, shell, GUI                                        |
++--------------------------------------------------------------------------------------------+
+
+GHI CHÚ:
+- System Call: Ứng dụng gọi kernel qua lệnh `syscall` → trap vào kernel mode
+- Context Switch: OS lưu/thiết lập thanh ghi, stack, PCB khi đổi tiến trình
+- Page Fault: Khi truy cập trang chưa ở RAM → OS nạp từ disk (swap/file)
+- VFS: Virtual File System – cho phép mount ext4, NTFS, FAT32 cùng lúc
+- DMA: Thiết bị I/O ghi trực tiếp vào RAM, không cần CPU
+- IRQ: Thiết bị gửi ngắt → kernel xử lý trong interrupt handler
+- Timer IRQ: Định kỳ (vd: 1ms) → OS kiểm tra có cần lập lịch lại không
+- Kernel Space: Bảo vệ bởi MMU, chỉ chạy ở Ring 0
+- User Space: Mỗi tiến trình có không gian riêng, cách ly
+- Swap: Khi RAM đầy, OS đưa các page ít dùng ra disk
 ```
 
 ## 1. OPERATING SYSTEMS  

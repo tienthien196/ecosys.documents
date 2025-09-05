@@ -1,17 +1,252 @@
+---
+title: Compiler
+sidebar_position: 1
+---
+
+
 ```
-                            COMPILER ROADMAP
-                                   |
-        ---------------------------------------------------------
-        |                         |                             |
-   PHASE 1: FOUNDATIONS     PHASE 2: COMPILER STAGES     PHASE 3: ADVANCED TOPICS
-        |                         |                             |
-  -------------------    --------------------------    --------------------------
-  |         |       |    |        |        |       |    |            |           |
-Programming  Theory  Math  Lexical   Syntax    Semantic   Optimization  Code Gen   Runtime
-  Languages   of Comp. (Discrete,  Analysis   Analysis    Analysis     (IR → ASM)   System
-  (C, Python)  (Automata,  Linear Alg)  (Tokenizer)  (Parser)     (Type Check)   (Constant Folding,  (x86, ARM)  (GC, Stack,
-              Formal Lang)                         (AST)                      Loop Unrolling)             Heap)
+==========================================================================================================
+                  TRÌNH BIÊN DỊCH TOÀN DIỆN – BẢN CHẤT TỪ MÃ NGUỒN ĐẾN MÃ MÁY
+==========================================================================================================
+
++---------------------------------------------------------------------------------------------------------+
+|                                         SOURCE CODE (User)                                            |
+|                                                                                                         |
+|   int factorial(int n) {                                                                                |
+|       if (n <= 1) return 1;                                                                             |
+|       return n * factorial(n - 1);                                                                      |
+|   }                                                                                                     |
+|                                                                                                         |
+|  ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐  |
+|  │            HIGH-LEVEL LANGUAGE (C, Rust, Java...) → Human-readable, portable                    │  |
+|  └─────────────────────────────────────────────────────────────────────────────────────────────────┘  |
+|                                                                                                         |
++---------------------------------------------------------------------------------------------------------+
+                                          |
+                                          | (Compilation Pipeline)
+                                          v
++---------------------------------------------------------------------------------------------------------+
+|                                        COMPILER FRONTEND                                              |
+|                                                                                                         |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|  |   LEXICAL ANALYSIS   |     |   SYNTAX ANALYSIS    |     |   SEMANTIC ANALYSIS           |           |
+|  | (Scanner / Lexer)    |     | (Parser)             |     |                               |           |
+|  |                      |     |                      |     |  +--------------------------+ |           |
+|  | Input: char stream   | --> | Input: tokens        | --> |  | Symbol Table             | |           |
+|  | Output: tokens       |     | Output: AST          |     |  | - n: int, scope: global  | |           |
+|  |                      |     |                      |     |  | - factorial(): int(int)  | |           |
+|  | Example:             |     | Grammar:             |     |  +------------+-------------+ |           |
+|  | int → KEYWORD        |     | S → func_def         |     |               |               |           |
+|  | n   → IDENTIFIER     |     | func_def → type ID(…) |     |  +------------v-------------+ |           |
+|  | =   → OPERATOR       |     |                      |     |  | Type Checking            | |           |
+|  | ;   → SEPARATOR      |     | Uses: CFG, LL/LR     |     |  | - int * int → int        | |           |
+|  +----------------------+     +----------+-----------+     |  | - No undeclared vars     | |           |
+|                                          |                 |  +--------------------------+ |           |
+|                                          v                 +-------------------------------+           |
+|                                +------------------+                                                  |
+|                                |   ABSTRACT SYNTAX  |                                                 |
+|                                |   TREE (AST)       |                                                 |
+|                                |                    |                                                 |
+|                                |   Function: "factorial"                                               |
+|                                |     Params: n (int)                                                   |
+|                                |     Body:                                                               |
+|                                |       If (n <= 1)                                                       |
+|                                |         Return 1                                                        |
+|                                |       Else                                                              |
+|                                |         Return n * factorial(n-1)                                       |
+|                                +--------------------+                                                  |
++------------------------------------------------------+--------------------------------------------------+
+                                                       |
+                                                       | (Intermediate Representation)
+                                                       v
++---------------------------------------------------------------------------------------------------------+
+|                                     INTERMEDIATE REPRESENTATION (IR)                                    |
+|                                                                                                         |
+|  +-----------------------------+     +----------------------------+     +------------------------+     |
+|  | Three-Address Code (TAC)    |     | Control Flow Graph (CFG)   |     | LLVM IR / Bytecode     |     |
+|  |                             |     |                            |     |                        |     |
+|  | t1 = n <= 1                 |     |       +--------+         |     | define i32 @factorial   |     |
+|  | if t1 goto L1               |     |       | Entry  |         |     | (i32 %n) {              |     |
+|  | t2 = n - 1                  | --> |       +--------+         | --> |   %cmp = icmp sle i32   |     |
+|  | t3 = call factorial(t2)     |     |         |                |     |   %n, 1                 |     |
+|  | t4 = n * t3                 |     |         v                |     |   br i1 %cmp, label %if,|     |
+|  | return t4                   |     |   +-------------+        |     |       label %else       |     |
+|  | L1: return 1                |     |   | if (n<=1) |        |     | }                       |     |
+|  +-----------------------------+     |   +-------------+        |     +------------------------+     |
+|                                     |         |                |                                     |
+|                                     |         v                |                                     |
+|                                     |   +-------------+        |                                     |
+|                                     |   | return 1    |        |                                     |
+|                                     |   +-------------+        |                                     |
+|                                     |         ^                |                                     |
+|                                     |         |                |                                     |
+|                                     |   +-------------+        |                                     |
+|                                     |   | n * fact(...) |        |                                     |
+|                                     |   +-------------+        |                                     |
+|                                     |         |                |                                     |
+|                                     |       +--------+         |                                     |
+|                                     |       | Exit   |         |                                     |
+|                                     |       +--------+         |                                     |
+|                                     +----------------------------+                                     |
+|                                                                                                         |
+|  ✅ IR: Độc lập ngôn ngữ & kiến trúc → dễ tối ưu và tái sử dụng                                         |
++---------------------------------------------------------------------------------------------------------+
+                                                       |
+                                                       | (Optimization Passes)
+                                                       v
++---------------------------------------------------------------------------------------------------------+
+|                                         OPTIMIZATION ENGINE                                             |
+|                                                                                                         |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|  | Local Optimization   |     | Global Optimization  |     | Loop & Inter-procedural       |           |
+|  | (Basic Block)        |     | (Function-wide)      |     | Optimization                  |           |
+|  | - Constant Folding   |     | - Live Variable      |     | - Loop Invariant Motion       |           |
+|  |   2+3 → 5            |     |   Analysis           |     | - Function Inlining           |           |
+|  | - Dead Code Removal  |     | - Available Exprs    |     | - Devirtualization            |           |
+|  |   if(0) → remove     |     | - Reaching Defs      |     |                               |           |
+|  +----------+-----------+     +----------+-----------+     +---------------+---------------+           |
+|            |                            |                                 |                           |
+|            +----------------------------+---------------------------------+                           |
+|                                         | (Optimized IR)                                                |
+|                                         v                                                             |
+|  +-----------------------------+                                                                      |
+|  | Optimized TAC / LLVM IR     |                                                                      |
+|  |                             |                                                                      |
+|  | t1 = n <= 1                 |                                                                      |
+|  | br t1, L1, L2                 |                                                                      |
+|  | L2:                         |                                                                      |
+|  |   t2 = n - 1                |                                                                      |
+|  |   t3 = factorial(t2)        |                                                                      |
+|  |   t4 = n * t3               |                                                                      |
+|  |   return t4                 |                                                                      |
+|  | L1: return 1                |                                                                      |
+|  +-----------------------------+                                                                      |
++---------------------------------------------------------------------------------------------------------+
+                                                       |
+                                                       | (Code Generation)
+                                                       v
++---------------------------------------------------------------------------------------------------------+
+|                                          CODE GENERATION (BACKEND)                                    |
+|                                                                                                         |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|  | Instruction Selection|     | Register Allocation  |     | Instruction Scheduling        |           |
+|  | - Chọn lệnh máy phù  |     | - Gán biến vào thanh|     | - Sắp xếp lệnh để pipeline     |           |
+|  |   hợp: add, mul, call| --> |   ghi (register)      | --> |   hiệu quả (avoid stalls)      |           |
+|  | - Dùng pattern       |     | - Nếu không đủ: spill|     | - Ví dụ: di chuyển load lên   |           |
+|  |   matching (LLVM)    |     |   ra bộ nhớ (stack)   |     |   trước khi dùng               |           |
+|  +----------+-----------+     +----------+-----------+     +-------------------------------+           |
+|            |                            |                                                             |
+|            +----------------------------+                                                             |
+|                                         |                                                             |
+|                                         v                                                             |
+|  +---------------------------------------------------------------------------------------------+      |
+|  |                                   MACHINE CODE (x86-64)                                   |      |
+|  |                                                                                           |      |
+|  |   factorial:                                                                            |      |
+|  |     cmp edi, 1        ; so sánh n với 1                                                 |      |
+|  |     jle .L1           ; nếu n<=1 → nhảy                                               |      |
+|  |     push rbx          ; lưu thanh ghi                                                 |      |
+|  |     mov ebx, edi      ; ebx = n                                                       |      |
+|  |     dec edi           ; n-1                                                           |      |
+|  |     call factorial    ; đệ quy                                                       |      |
+|  |     imul eax, ebx     ; n * kết quả                                                  |      |
+|  |     pop rbx           ; phục hồi                                                    |      |
+|  |     ret               ; trả về                                                      |      |
+|  |   .L1:                                                                              |      |
+|  |     mov eax, 1        ; return 1                                                    |      |
+|  |     ret                                                                             |      |
+|  |                                                                                           |      |
+|  |  → Output: Object file (.o) → liên kết (linker) → executable                           |      |
+|  +---------------------------------------------------------------------------------------------+      |
++---------------------------------------------------------------------------------------------------------+
+                                          |
+                                          | (Linking)
+                                          v
++---------------------------------------------------------------------------------------------------------+
+|                                           LINKER & LOADER                                             |
+|                                                                                                         |
+|  +----------------------+     +----------------------+                                                 |
+|  | Static Linker        |     | Dynamic Loader       |                                                 |
+|  | - Ghép nhiều .o file  |     | - Nạp executable vào|                                                 |
+|  | - Giải quyết symbol   | --> |   memory tại runtime |                                                 |
+|  |   (printf, malloc)    |     | - Nạp shared library |                                                 |
+|  | - Tạo executable      |     |   (.so, .dll)        |                                                 |
+|  +----------------------+     +----------------------+                                                 |
+|                                                                                                         |
+|  Output: a.out (Linux), .exe (Windows)                                                                  |
++---------------------------------------------------------------------------------------------------------+
+                                          |
+                                          | (Execution)
+                                          v
++---------------------------------------------------------------------------------------------------------+
+|                                         RUNTIME ENVIRONMENT                                           |
+|                                                                                                         |
+|  +---------------------+     +----------------------+     +----------------------+                    |
+|  |    Call Stack       |     |       Heap           |     |   Runtime System     |                    |
+|  | (Activation Records)|     | (malloc, new, GC)    |     | - Garbage Collector  |                    |
+|  |                     |     |                      |     | - JIT Compiler (V8)  |                    |
+|  | +---------------+   |     | +------------------+ |     | - Exception Handler  |                    |
+|  | | Return addr   |<--+-----+>| Objects          | |     | - Type System        |                    |
+|  | +---------------+   |     | | int x = 5;       | |     +----------------------+                    |
+|  | | Args: n=5     |   |     | | List lst;        | |                              |                    |
+|  | +---------------+   |     | +------------------+ |                              |                    |
+|  | | Local vars    |   |     |                      |                              |                    |
+|  | | (none)        |   |     |                      |                              |                    |
+|  | +---------------+   |     +----------------------+                              |                    |
+|  | | Saved RBP     |   |                                                           |                    |
+|  | +---------------+   |                                                           |                    |
+|  |        |            |                                                           |                    |
+|  |        v            |                                                           |                    |
+|  | +---------------+   |                                                           |                    |
+|  | | Previous frame|   |                                                           |                    |
+|  | +---------------+   |                                                           |                    |
+|  +---------------------+                                                           |                    |
+|                                                                                     |                    |
+|  ← Mỗi lần gọi hàm: tạo frame mới trên stack ← Trả về: giải phóng frame            |                    |
++-------------------------------------------------------------------------------------+--------------------+
+
+                                          |
+                                          | (Hardware Execution)
+                                          v
++---------------------------------------------------------------------------------------------------------+
+|                                         CPU EXECUTION                                                   |
+|                                                                                                         |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|  | Instruction Fetch    | --> | Decode               | --> | Execute (ALU, FPU, Branch)    |           |
+|  | (from .text section) |     | (opcode → micro-op)  |     |                               |           |
+|  +----------------------+     +----------------------+     +-------------------------------+           |
+|                                                                                                         |
+|  → Kết quả: chương trình chạy, in ra: factorial(5) = 120                                              |
++---------------------------------------------------------------------------------------------------------+
+
+                                                                 ^
+                                                                 | (JIT Compilation – Alternative Path)
+                                                                 |
++------------------------------------------------------------------------------------------------------------------+
+|                                          JUST-IN-TIME (JIT) COMPILATION                                        |
+|                                                                                                                  |
+|   Source (JavaScript) → AST → Bytecode (V8) → Hot Code Detected → Compile to Machine Code → Cache                |
+|                                                                                                                  |
+|   Ví dụ: V8 (Chrome), HotSpot (Java), .NET CLR                                                                   |
+|   ✅ Ưu điểm: tối ưu theo hành vi thực tế                                                                          |
+|   ❌ Nhược điểm: thời gian khởi động, tốn CPU lúc chạy                                                           |
++------------------------------------------------------------------------------------------------------------------+
 ```
+
+GHI CHÚ:
+- **Frontend**: Ngôn ngữ cụ thể (C, Python) → IR
+- **Backend**: Kiến trúc cụ thể (x86, ARM) ← IR
+- **IR (Intermediate Representation)**: Cầu nối giữa frontend và backend
+- **Symbol Table**: Lưu thông tin biến, hàm, kiểu, scope – dùng xuyên suốt
+- **Register Allocation**: Dùng Graph Coloring hoặc Linear Scan
+- **Optimization**: Càng muộn → càng hiệu quả (nhưng phải đúng)
+- **GC**: Chỉ có trong ngôn ngữ quản lý bộ nhớ tự động (Java, Go, Python)
+- **Static vs Dynamic Linking**: .a vs .so (Linux), .lib vs .dll (Windows)
+- **Activation Record**: Frame trên stack khi gọi hàm
+- **LLVM**: Framework compiler hiện đại – frontend (Clang) + backend (LLVM IR → x86/ARM)
+
+
+> ``` Source → Lexer → Parser → AST → Semantic → IR → Optimize → Code Gen → Object → Link → Executable → Run ```
 
 ## 1. COMPILER  
 ### 1.1. Introduction to Compilers  
